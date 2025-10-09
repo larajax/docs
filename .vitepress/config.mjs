@@ -7,8 +7,9 @@ export default {
     themeConfig: {
         logo: '/favicon.svg',
         nav: [
-            { text: 'Guide', link: '/guide/getting-started' },
-            { text: 'API', link: '/guide/api' },
+            { text: 'Getting Started', link: '/guide/getting-started' },
+            { text: 'Features', link: '/guide/api' },
+            { text: 'API Handbook', link: '/guide/api' },
             { text: 'GitHub', link: 'https://github.com/larajax/larajax' }
         ],
         sidebar: {
