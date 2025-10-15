@@ -58,4 +58,19 @@ class UserProfileController extends LarajaxController
 
 Notice that the API endpoints all start with `onSomething`, this is a dedicated naming convention that can be spotted immediately as an API endpoint.
 
-This is a better way to organise routes and keep API logic contained to controllers that actually use them. But now since they are local and not global, what about reuse, what if we want to include the `onCheckUserEmail`
+This is a better way to organise routes and keep API logic contained to controllers that actually use them. But now since they are local and not global, what about reuse, what if we want to include the `onCheckUserEmail` AJAX handler on more than one controller?
+
+### Enter Components
+
+Every controller class supports a `$components` property where components can be defined. The AJAX handlers will be extracted from these classes and included in the controller.
+
+```php
+class UserProfileController extends LarajaxController
+{
+    public $components = [
+        \App\Components\FileUploadInput::class
+    ];
+}
+```
+
+To learn more about how to define a component, visit the [components article](#todo).
