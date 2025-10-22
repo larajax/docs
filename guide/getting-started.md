@@ -11,7 +11,8 @@ npm i larajax
 
 ```php
 // Controller
-public function onSave() {
+public function onSave()
+{
     // ...
     return ['#message' => view('partials.message')];
 }
@@ -19,9 +20,9 @@ public function onSave() {
 
 ## What problem are we solving?
 
-Primarily it is API access. We often need to define two types of endpoints, pages that render to the browser and API endpoints that perform actions (usually RESTful).
+Primarily Larajax is useful for defining _internal_ APIs that are defined and consumed by the same application. We often need to define two types of endpoints, pages that render to the browser and API endpoints that perform actions (usually RESTful).
 
-The problem with RESTful endpoints is they can quickly get disorganised, since they are global to the application by default. For example, a simple profile page may look like this:
+The problem with using RESTful endpoints as internal APIs is they can quickly get disorganised, since they are global to the application by default. For example, a simple profile page may look like this:
 
 ```php
 Route::get('/user-profile', ...);
