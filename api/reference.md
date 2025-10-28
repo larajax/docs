@@ -6,9 +6,10 @@ The following are core attributes that you will reach for commonly.
 
 Attribute | Description
 --------- | ------------
-[data-request](#) | Makes a request to a given AJAX handler
-[data-request-data](#) | Supplies postback data with the request
-[data-request-trigger](#) | The event that triggers the request
+[data-request](./attributes/request.md) | Makes a request to a given AJAX handler
+[data-request-data](./attributes/request-data.md) | Supplies postback data with the request
+[data-request-trigger](./attributes/request-trigger.md) | The event that triggers the request
+[data-request-update](./attributes/request-update.md) | Request specified partial view updates
 
 ## Additional Attribute Reference
 
@@ -23,3 +24,19 @@ Attribute | Description
 [data-request-error](#) | Execute JavaScript on a failed request.
 [data-request-complete](#) | Execute JavaScript on every completed request.
 [data-request-cancel](#) | Execute JavaScript if the user aborts the request or cancels it via a confirmation dialog.
+
+## Available Events
+
+[ajax:before-send](#) | window | fired before sending a request.
+[ajax:before-update](#) | trigger | fired after the request is complete, but before the page is updated.
+[ajax:update](#) | element | fired after the element has updated.
+[ajax:update-complete](#) | window | fired after all elements have updated.
+[ajax:request-success](#) | window | request has completed successfully.
+[ajax:request-error](#) | window | request encountered an errors.
+[ajax:error-message](#) | window | an error message wants to display.
+[ajax:confirm-message](#) | window | a confirm message wants to display.
+[ajax:setup](#) | trigger | before a request is formed.
+[ajax:promise](#) | trigger | before the request is sent.
+[ajax:done](#) | trigger | the request was successful.
+[ajax:fail](#) | trigger | the request failed.
+[ajax:always](#) | trigger | the request failed or was successful.
