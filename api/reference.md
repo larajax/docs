@@ -27,6 +27,8 @@ Attribute | Description
 
 ## Available Events
 
+Event | Target | Description
+----- | ------ | ------------
 [ajax:before-send](#) | window | fired before sending a request.
 [ajax:before-update](#) | trigger | fired after the request is complete, but before the page is updated.
 [ajax:update](#) | element | fired after the element has updated.
@@ -40,3 +42,29 @@ Attribute | Description
 [ajax:done](#) | trigger | the request was successful.
 [ajax:fail](#) | trigger | the request failed.
 [ajax:always](#) | trigger | the request failed or was successful.
+
+## Available Response Methods
+
+Method | Description
+------ | ------------
+[exception()](#) | processes an exception as an response
+[data()](#) | adds response data to the response
+[flash()](#) | adds flash messages to the response
+[redirect()](#) | adds a browser redirect to the response
+[reload()](#) | adds a browser refresh command to the response
+[update()](#) | adds DOM updates to the AJAX response
+[error()](#) | adds an error message to the response
+[fatal()](#) | adds a fatal error message to the response
+[js()](#) | adds a JavaScript file or files to load with the output
+[css()](#) | adds a StyleSheet file or files to load with the output
+[img()](#) | adds an image file or files to load with the output
+[browserEvent()](#) | adds browser event dispatch with the response
+[invalidFields()](#) | adds invalid form fields to the response
+[partials()](#) | provides multiple requested partial responses to the browser
+
+## Available Helper Methods
+
+Method | Description
+------ | ------------
+[wrap()](#) | wrap arbitrary handler output into an AjaxResponse
+[registerGlobalComponent()](#) | register a stateless component class available globally
