@@ -17,13 +17,14 @@ All other attributes are specified below.
 
 Attribute | Description
 --------- | ------------
-[data-request-query](#) | Supplies query data with the request and modifies the URL
-[data-request-confirm](#) | Displays a confirmation message before sending the request.
-[data-request-before-update](#) | Execute JavaScript before the page contents are updated.
-[data-request-success](#) | Execute JavaScript on a successful request.
-[data-request-error](#) | Execute JavaScript on a failed request.
-[data-request-complete](#) | Execute JavaScript on every completed request.
-[data-request-cancel](#) | Execute JavaScript if the user aborts the request or cancels it via a confirmation dialog.
+[data-request-query](./attributes/request-query.md) | Supplies query data with the request and modifies the URL
+[data-request-confirm](./attributes/request-confirm.md) | Displays a confirmation message before sending the request.
+[data-request-before-send](./attributes/request-before-send.md) | Execute JavaScript before the request is sent.
+[data-request-before-update](./attributes/request-before-update.md) | Execute JavaScript before the page contents are updated.
+[data-request-success](./attributes/request-success.md) | Execute JavaScript on a successful request.
+[data-request-error](./attributes/request-error.md) | Execute JavaScript on a failed request.
+[data-request-complete](./attributes/request-complete.md) | Execute JavaScript on every completed request.
+[data-request-cancel](./attributes/request-cancel.md) | Execute JavaScript if the user aborts the request or cancels it via a confirmation dialog.
 
 ## Available Events
 
