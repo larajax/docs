@@ -7,16 +7,19 @@ export default {
     themeConfig: {
         logo: '/favicon.svg',
         nav: [
-            { text: 'Getting Started', link: '/guide/getting-started' },
-            { text: 'Features', link: '/guide/api' },
-            { text: 'API Handbook', link: '/guide/api' },
+            { text: 'Guide', link: '/guide/getting-started' },
+            { text: 'Reference', link: '/api/reference' },
             { text: 'GitHub', link: 'https://github.com/larajax/larajax' }
+            // { text: 'Features', link: '/guide/api' },
         ],
         sidebar: {
             '/guide/': [
-                { text: 'Getting started', link: '/guide/getting-started' },
-                { text: 'Examples', link: '/examples/examples' },
-                { text: 'API', link: '/api/api' }
+                { text: 'Getting Started', link: '/guide/getting-started' },
+                { text: 'Working with Data', link: '/guide/working-with-data' },
+                { text: 'Working with Query', link: '/guide/working-with-query' },
+                { text: 'Controller Integration', link: '/guide/controller-integration' },
+                { text: 'Defining Components', link: '/guide/defining-components' }
+                // { text: 'API', link: '/api/api' }
                 // { text: 'Security', link: '/guide/security' },
                 // { text: 'FAQ', link: '/guide/faq' }
             ]
