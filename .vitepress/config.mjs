@@ -14,14 +14,27 @@ export default {
         ],
         sidebar: {
             '/guide/': [
-                { text: 'Getting Started', link: '/guide/getting-started' },
-                { text: 'Working with Data', link: '/guide/working-with-data' },
-                { text: 'Working with Query', link: '/guide/working-with-query' },
-                { text: 'Controller Integration', link: '/guide/controller-integration' },
-                { text: 'Defining Components', link: '/guide/defining-components' }
-                // { text: 'API', link: '/api/api' }
-                // { text: 'Security', link: '/guide/security' },
-                // { text: 'FAQ', link: '/guide/faq' }
+                {
+                    text: "Introduction",
+                    items: [
+                        { text: 'Getting Started', link: '/guide/getting-started' },
+                        { text: 'Installation', link: '/guide/installation' }
+                    ]
+                },
+                {
+                    text: "Core Concepts",
+                    items: [
+                        { text: 'Working with Data', link: '/guide/working-with-data' },
+                        { text: 'Working with Query', link: '/guide/working-with-query' }
+                    ]
+                },
+                {
+                    text: "Laravel Integration",
+                    items: [
+                        { text: 'Controller Integration', link: '/guide/controller-integration' },
+                        { text: 'Defining Components', link: '/guide/defining-components' }
+                    ]
+                }
             ]
         },
         socialLinks: [
