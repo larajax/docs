@@ -1,5 +1,11 @@
 # Installation
 
+## Install
+
+```bash
+composer require larajax/larajax
+npm i larajax
+```
 
 ## Laravel Mix
 

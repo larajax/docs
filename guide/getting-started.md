@@ -1,12 +1,5 @@
 # Getting started
 
-## Install
-
-```bash
-composer require larajax/larajax
-npm i larajax
-```
-
 ## First action
 
 ```php

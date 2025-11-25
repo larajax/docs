@@ -18,23 +18,44 @@ export default {
                     text: "Introduction",
                     items: [
                         { text: 'Getting Started', link: '/guide/getting-started' },
-                        { text: 'Installation', link: '/guide/installation' }
+                        { text: 'Installation', link: '/guide/installation' },
+                        { text: 'Laravel Integration', link: '/guide/laravel-integration' }
                     ]
                 },
                 {
                     text: "Core Concepts",
                     items: [
-                        { text: 'Working with Data', link: '/guide/working-with-data' },
-                        { text: 'Working with Query', link: '/guide/working-with-query' }
+                        { text: 'AJAX Handlers', link: '/guide/ajax-handlers' },
+                        { text: 'Responses', link: '/guide/ajax-responses' },
+                        { text: 'Form Data', link: '/guide/form-data' },
+                        { text: 'Query Data', link: '/guide/query-data' }
                     ]
                 },
                 {
-                    text: "Laravel Integration",
+                    text: "Exploring Further",
                     items: [
-                        { text: 'Controller Integration', link: '/guide/controller-integration' },
-                        { text: 'Defining Components', link: '/guide/defining-components' }
+                        { text: 'Defining Components', link: '/guide/defining-components' },
+                        { text: 'Form Validation', link: '/guide/form-validation' },
+                        { text: 'File Uploads', link: '/guide/file-uploads' },
+                        { text: 'Flash Messages', link: '/guide/flash-messages' }
+                    ]
+                },
+                {
+                    text: "Hot Controls",
+                    items: [
+                        { text: 'Defining Hot Controls', link: '/controls/definition' },
+                        { text: 'Writing Listeners', link: '/controls/listeners' },
+                        { text: 'Example Usage', link: '/controls/examples' },
+                    ]
+                },
+                {
+                    text: "Turbo Router",
+                    items: [
+                        { text: 'Enable Turbo Router', link: '/turbo/setup' },
+                        { text: 'Working with JavaScript', link: '/turbo/javascript' },
                     ]
                 }
+
             ]
         },
         socialLinks: [
