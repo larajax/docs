@@ -4,6 +4,9 @@ export default {
     head: [
         ['link', { rel: 'icon', href: '/favicon.svg' }]
     ],
+    rewrites: {
+        'index.md': 'guide/getting-started.md'
+    },
     themeConfig: {
         logo: '/favicon.svg',
         nav: [
