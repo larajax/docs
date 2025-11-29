@@ -1,65 +1,65 @@
+const sharedSidebar = [
+    {
+        text: "Introduction",
+        items: [
+            { text: 'Getting Started', link: '/' },
+            { text: 'Installation', link: '/guide/installation' },
+            { text: 'Laravel Integration', link: '/guide/laravel-integration' }
+        ]
+    },
+    {
+        text: "Core Concepts",
+        items: [
+            { text: 'AJAX Handlers', link: '/guide/ajax-handlers' },
+            { text: 'Responses', link: '/guide/ajax-responses' },
+            { text: 'Form Data', link: '/guide/form-data' },
+            { text: 'Query Data', link: '/guide/query-data' }
+        ]
+    },
+    {
+        text: "Exploring Further",
+        items: [
+            { text: 'Defining Components', link: '/guide/defining-components' },
+            { text: 'Form Validation', link: '/guide/form-validation' },
+            { text: 'File Uploads', link: '/guide/file-uploads' },
+            { text: 'Flash Messages', link: '/guide/flash-messages' }
+        ]
+    },
+    {
+        text: "Hot Controls",
+        items: [
+            { text: 'Defining Hot Controls', link: '/controls/definition' },
+            { text: 'Writing Listeners', link: '/controls/listeners' },
+            { text: 'Example Usage', link: '/controls/examples' },
+        ]
+    },
+    {
+        text: "Turbo Router",
+        items: [
+            { text: 'Enable Turbo Router', link: '/turbo/setup' },
+            { text: 'Working with JavaScript', link: '/turbo/javascript' },
+        ]
+    }
+
+];
+
 export default {
     title: 'Larajax',
     description: 'AJAX for Laravel, without the boilerplate',
     head: [
         ['link', { rel: 'icon', href: '/favicon.svg' }]
     ],
-    rewrites: {
-        'index.md': 'guide/getting-started.md'
-    },
     themeConfig: {
         logo: '/favicon.svg',
         nav: [
-            { text: 'Guide', link: '/guide/getting-started' },
+            { text: 'Guide', link: '/' },
             { text: 'Reference', link: '/api/reference' },
             { text: 'GitHub', link: 'https://github.com/larajax/larajax' }
             // { text: 'Features', link: '/guide/api' },
         ],
         sidebar: {
-            '/guide/': [
-                {
-                    text: "Introduction",
-                    items: [
-                        { text: 'Getting Started', link: '/guide/getting-started' },
-                        { text: 'Installation', link: '/guide/installation' },
-                        { text: 'Laravel Integration', link: '/guide/laravel-integration' }
-                    ]
-                },
-                {
-                    text: "Core Concepts",
-                    items: [
-                        { text: 'AJAX Handlers', link: '/guide/ajax-handlers' },
-                        { text: 'Responses', link: '/guide/ajax-responses' },
-                        { text: 'Form Data', link: '/guide/form-data' },
-                        { text: 'Query Data', link: '/guide/query-data' }
-                    ]
-                },
-                {
-                    text: "Exploring Further",
-                    items: [
-                        { text: 'Defining Components', link: '/guide/defining-components' },
-                        { text: 'Form Validation', link: '/guide/form-validation' },
-                        { text: 'File Uploads', link: '/guide/file-uploads' },
-                        { text: 'Flash Messages', link: '/guide/flash-messages' }
-                    ]
-                },
-                {
-                    text: "Hot Controls",
-                    items: [
-                        { text: 'Defining Hot Controls', link: '/controls/definition' },
-                        { text: 'Writing Listeners', link: '/controls/listeners' },
-                        { text: 'Example Usage', link: '/controls/examples' },
-                    ]
-                },
-                {
-                    text: "Turbo Router",
-                    items: [
-                        { text: 'Enable Turbo Router', link: '/turbo/setup' },
-                        { text: 'Working with JavaScript', link: '/turbo/javascript' },
-                    ]
-                }
-
-            ]
+            '/index': sharedSidebar,
+            '/guide/': sharedSidebar
         },
         socialLinks: [
             { icon: 'github', link: 'https://github.com/larajax/larajax' }
