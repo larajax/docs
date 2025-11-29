@@ -59,7 +59,9 @@ export default {
         ],
         sidebar: {
             '/index': sharedSidebar,
-            '/guide/': sharedSidebar
+            '/guide/': sharedSidebar,
+            '/controls/': sharedSidebar,
+            '/turbo/': sharedSidebar
         },
         socialLinks: [
             { icon: 'github', link: 'https://github.com/larajax/larajax' }
