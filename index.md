@@ -6,4 +6,4 @@ Server-driven interactivity for Laravel.
 - Declarative requests via HTML attributes
 - Secure by default (CSRF/validation)
 
-→ [Get Started](./guide/getting-started.md)
+→ [Get Started](https://larajax.org/guide/getting-started.html)
