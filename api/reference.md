@@ -30,19 +30,19 @@ Attribute | Description
 
 Event | Target | Description
 ----- | ------ | ------------
-[ajax:before-send](#) | window | fired before sending a request.
-[ajax:before-update](#) | trigger | fired after the request is complete, but before the page is updated.
-[ajax:update](#) | element | fired after the element has updated.
-[ajax:update-complete](#) | window | fired after all elements have updated.
-[ajax:request-success](#) | window | request has completed successfully.
-[ajax:request-error](#) | window | request encountered an errors.
-[ajax:error-message](#) | window | an error message wants to display.
-[ajax:confirm-message](#) | window | a confirm message wants to display.
-[ajax:setup](#) | trigger | before a request is formed.
-[ajax:promise](#) | trigger | before the request is sent.
-[ajax:done](#) | trigger | the request was successful.
-[ajax:fail](#) | trigger | the request failed.
-[ajax:always](#) | trigger | the request failed or was successful.
+[ajax:before-send](./events/index.md#ajax-before-send) | window | fired before sending a request.
+[ajax:before-update](./events/index.md#ajax:before-update) | trigger | fired after the request is complete, but before the page is updated.
+[ajax:update](./events/index.md#ajax:update) | element | fired after the element has updated.
+[ajax:update-complete](./events/index.md#ajax:update-complete) | window | fired after all elements have updated.
+[ajax:request-success](./events/index.md#ajax:request-success) | window | request has completed successfully.
+[ajax:request-error](./events/index.md#ajax:request-error) | window | request encountered an errors.
+[ajax:error-message](./events/index.md#ajax:error-message) | window | an error message wants to display.
+[ajax:confirm-message](./events/index.md#ajax:confirm-message) | window | a confirm message wants to display.
+[ajax:setup](./events/index.md#ajax:setup) | trigger | before a request is formed.
+[ajax:promise](./events/index.md#ajax:promise) | trigger | before the request is sent.
+[ajax:done](./events/index.md#ajax:done) | trigger | the request was successful.
+[ajax:fail](./events/index.md#ajax:fail) | trigger | the request failed.
+[ajax:always](./events/index.md#ajax:always) | trigger | the request failed or was successful.
 
 ## Available Response Methods
 
