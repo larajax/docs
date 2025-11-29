@@ -145,7 +145,7 @@ You can disable the page cache for individual pages by using the `turbo-cache-co
 
 ## Working with JavaScript
 
-When working with PJAX, the page contents may load dynamically, which differs from the usual browser behavior. To overcome this, use the `render` event handler is called every time the page loads, including [AJAX updates](./update-partials.md).
+When working with PJAX, the page contents may load dynamically, which differs from the usual browser behavior. To overcome this, use the `render` event handler is called every time the page loads, including AJAX updates.
 
 ```js
 addEventListener('render', function() {
@@ -208,7 +208,7 @@ To execute inline JavaScript code only once, regardless of first page load or PJ
 ### Making Controls Idempotent
 
 ::: aside
-October CMS provides a complimentary library that is used to make building [idempotent controls](./hot-controls.md) easy.
+October CMS provides a complimentary library that is used to make building [idempotent controls](../controls/definition.md) easy.
 :::
 
 When a page visit occurs and JavaScript components are initialized, it is important that these function are idempotent. In simple terms, an idempotent function is safe to apply multiple times without changing the result beyond its initial application.
@@ -249,7 +249,7 @@ addEventListener('page:unload', function() {
 ```
 
 ::: tip
-October CMS includes a complimentary library for [building disposable controls](./hot-controls.md).
+October CMS includes a complimentary library for [building disposable controls](../controls/definition.md).
 :::
 
 ### Pause Rendering
