@@ -7,6 +7,7 @@ namespace App;
 
 use Illuminate\Routing\Controller;
 use Larajax\Contracts\AjaxControllerInterface;
+use Exception;
 
 class ControllerBase extends Controller implements AjaxControllerInterface
 {
@@ -15,8 +16,13 @@ class ControllerBase extends Controller implements AjaxControllerInterface
 
     public function callAction($method, $parameters)
     {
-        if ($result = $this->callAjaxAction($method, array_values($parameters))) {
-            return $result;
+        try {
+            if ($result = $this->callAjaxAction($method, array_values($parameters))) {
+                return $result;
+            }
+        }
+        catch (Exception $ex) {
+            return ajax()->exception($ex);
         }
 
         return parent::callAction($method, $parameters);
