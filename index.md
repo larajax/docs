@@ -2,13 +2,32 @@
 
 ## First action
 
+Basic example.
+
 ```php
 // Controller
 public function onSave()
 {
-    // ...
-    return ['#message' => view('partials.message')];
+    request()->validate([
+        'first_name' => 'required'
+    ]);
+
+    return ajax()->update([
+        '#message' => "Save complete!"
+    ]);
 }
+```
+
+In HTML
+
+```html
+<form>
+    <input name="first_name" />
+
+    <button data-request="onSave"></div>
+</form>
+
+<div id="message"></div>
 ```
 
 ## What problem are we solving?
