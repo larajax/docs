@@ -21,10 +21,10 @@ class LarajaxController extends Controller implements AjaxControllerInterface
     /**
      * callAction injects AJAX handlers in to controller actions
      */
-    public function callAction($action, $parameters)
+    public function callAction($action, $params)
     {
         try {
-            if ($result = $this->callAjaxAction($action, array_values($parameters))) {
+            if ($result = $this->callAjaxAction($action, array_values($params))) {
                 return $result;
             }
         }
@@ -32,12 +32,14 @@ class LarajaxController extends Controller implements AjaxControllerInterface
             return ajax()->exception($ex);
         }
 
-        return parent::callAction($action, $parameters);
+        return parent::callAction($action, $params);
     }
 }
 ```
 
 This controller class just needs to implement the `AjaxControllerInterface` interface and the `Larajax\Traits\AjaxController` trait provides a good way to do that. Then when a controller action is called (`callAction`), check to see if it is an AJAX request, and redirect the request to the AJAX handler (`callAjaxAction`) for processing.
+
+The `onSave` handler method returns an instance of an `AjaxResponse` object, spawned by the `ajax()` helper function.
 
 ## Implementing a Controller Class
 
