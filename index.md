@@ -1,8 +1,27 @@
-# Getting started
+# Getting Started
 
-## First action
+Web development shouldn't feel like a puzzle. Larajax keeps things simple so you can focus on what your app actually needs. No boilerplate. No front-end ceremony. Just clean, readable code.
 
-Basic example.
+Built by the team behind [October CMS](https://octobercms.com), this pattern has been battle-tested for years and is now available for the [Laravel Framework](http://laravel.com/) as a standalone package.
+
+## First Action
+
+Start with a tiny view:
+
+```html
+<!-- View -->
+<form data-request="onSave">
+    <input name="first_name" />
+
+    <button type="submit">
+        Save!
+    </button>
+</form>
+
+<div id="message"></div>
+```
+
+Then add to the controller:
 
 ```php
 // Controller
@@ -18,17 +37,7 @@ public function onSave()
 }
 ```
 
-In HTML
-
-```html
-<form>
-    <input name="first_name" />
-
-    <button data-request="onSave"></div>
-</form>
-
-<div id="message"></div>
-```
+You read this flow in one pass. Form fires the action. Controller runs. Page updates. Simple and clear.
 
 ## What problem are we solving?
 

@@ -1,23 +1,30 @@
 # Controller Integration
 
-Controllers require specific integration to make call AJAX handlers and return their result. It is a good idea set up a base controller class for your application.
+Controllers require specific integration to make call AJAX handlers and return their result. It is a good idea set up a base controller class for your application, or you can extend the `Larajax\LarajaxController` included with this package.
+
+Let's take a look at the `LarajaxController` controller to see how AJAX is implemented.
 
 ```php
-namespace App;
+namespace Larajax;
 
 use Illuminate\Routing\Controller;
 use Larajax\Contracts\AjaxControllerInterface;
 use Exception;
 
-class ControllerBase extends Controller implements AjaxControllerInterface
+/**
+ * LarajaxController is a basic implementation of Larajax in a Laravel controller
+ */
+class LarajaxController extends Controller implements AjaxControllerInterface
 {
-    // ...
     use \Larajax\Traits\AjaxController;
 
-    public function callAction($method, $parameters)
+    /**
+     * callAction injects AJAX handlers in to controller actions
+     */
+    public function callAction($action, $parameters)
     {
         try {
-            if ($result = $this->callAjaxAction($method, array_values($parameters))) {
+            if ($result = $this->callAjaxAction($action, array_values($parameters))) {
                 return $result;
             }
         }
@@ -25,23 +32,23 @@ class ControllerBase extends Controller implements AjaxControllerInterface
             return ajax()->exception($ex);
         }
 
-        return parent::callAction($method, $parameters);
+        return parent::callAction($action, $parameters);
     }
 }
 ```
 
-This class just needs to implement the `AjaxControllerInterface` interface and the `Larajax\Traits\AjaxController` trait provides a good way to do that.
+This controller class just needs to implement the `AjaxControllerInterface` interface and the `Larajax\Traits\AjaxController` trait provides a good way to do that. Then when a controller action is called (`callAction`), check to see if it is an AJAX request, and redirect the request to the AJAX handler (`callAjaxAction`) for processing.
 
 ## Implementing a Controller Class
 
-First let's start by creating a controller.
+First let's start by creating a profile controller.
 
 ```php
 namespace App\Controllers;
 
-use App\ControllerBase;
+use Larajax\LarajaxController;
 
-class ProfileController extends ControllerBase
+class ProfileController extends LarajaxController
 {
     public function index()
     {
@@ -55,8 +62,10 @@ class ProfileController extends ControllerBase
 }
 ```
 
-Now set up a route definintion for the index page. Be sure to use the `any` route to support both GET and POST.
+Now set up a route definition for the index page. Be sure to use the `any` route to support both GET and POST. We will route to the `index` method of the controller class.
 
 ```php
 Route::any('/profile', [\App\Controllers\ProfileController::class, 'index']);
 ```
+
+The `onSave` AJAX handler will be available to all actions defined by the `ProfileController` class.
