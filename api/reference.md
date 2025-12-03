@@ -48,12 +48,11 @@ Event | Target | Description
 
 Method | Description
 ------ | ------------
-[exception()](#) | processes an exception as an response
+[update()](#) | adds DOM updates to the AJAX response
 [data()](#) | adds response data to the response
 [flash()](#) | adds flash messages to the response
 [redirect()](#) | adds a browser redirect to the response
 [reload()](#) | adds a browser refresh command to the response
-[update()](#) | adds DOM updates to the AJAX response
 [error()](#) | adds an error message to the response
 [fatal()](#) | adds a fatal error message to the response
 [js()](#) | adds a JavaScript file or files to load with the output
@@ -62,6 +61,7 @@ Method | Description
 [browserEvent()](#) | adds browser event dispatch with the response
 [invalidFields()](#) | adds invalid form fields to the response
 [partials()](#) | provides multiple requested partial responses to the browser
+[exception()](#) | processes an exception as an response
 
 ## Available Helper Methods
 
