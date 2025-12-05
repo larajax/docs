@@ -1,6 +1,10 @@
 # Getting Started
 
-Web development shouldn't feel like a puzzle. Larajax keeps things simple so you can focus on what your app actually needs. No boilerplate. No front-end ceremony. Just clean, readable code.
+Building for the web often feels more complicated than it should be. Larajax cuts the noise so you can focus on what your app needs. You skip the usual setup. You skip the front-end clutter. You get clear, readable code.
+
+Larajax gives you small controller actions you call straight from the view. They behave like API endpoints but stay inside the controller that uses them.
+
+On the browser side, Larajax includes a light JS helper. Your markup triggers the action, and it sends the request and applies the response for you.
 
 Built by the team behind [October CMS](https://octobercms.com), this pattern has been battle-tested for years and is now available for the [Laravel Framework](http://laravel.com/) as a standalone package.
 
