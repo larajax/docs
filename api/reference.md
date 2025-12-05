@@ -48,20 +48,21 @@ Event | Target | Description
 
 Method | Description
 ------ | ------------
-[update()](#) | adds DOM updates to the AJAX response
-[data()](#) | adds response data to the response
-[redirect()](#) | adds a browser redirect to the response
-[reload()](#) | adds a browser refresh command to the response
-[flash()](#) | adds flash messages to the response
-[error()](#) | adds an error message to the response
-[fatal()](#) | adds a fatal error message to the response
-[js()](#) | adds a JavaScript file or files to load with the output
-[css()](#) | adds a StyleSheet file or files to load with the output
-[img()](#) | adds an image file or files to load with the output
-[browserEvent()](#) | adds browser event dispatch with the response
-[invalidFields()](#) | adds invalid form fields to the response
-[partials()](#) | provides multiple requested partial responses to the browser
-[exception()](#) | processes an exception as an response
+[update()](./response/index.md#update) | adds DOM updates to the AJAX response
+[data()](./response/index.md#data) | adds response data to the response
+[redirect()](./response/index.md#redirect) | adds a browser redirect to the response
+[reload()](./response/index.md#reload) | adds a browser refresh command to the response
+[flash()](./response/index.md#flash) | adds flash messages to the response
+[error()](./response/index.md#error) | adds an error message to the response
+[fatal()](./response/index.md#fatal) | adds a fatal error message to the response
+[js()](./response/index.md#js) | adds a JavaScript file or files to load with the output
+[css()](./response/index.md#css) | adds a StyleSheet file or files to load with the output
+[img()](./response/index.md#img) | adds an image file or files to load with the output
+[browserEvent()](./response/index.md#browserEvent) | adds browser event dispatch with the response
+[browserEventaSYNC()](./response/index.md#browserEventAsync) | adds asynchronous browser event dispatch with the response
+[invalidFields()](./response/index.md#invalidFields) | adds invalid form fields to the response
+[partials()](./response/index.md#partials) | provides multiple requested partial responses to the browser
+[exception()](./response/index.md#exception) | processes an exception as an response
 
 ## Available Helper Methods
 

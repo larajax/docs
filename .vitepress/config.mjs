@@ -50,7 +50,10 @@ export default {
         ['link', { rel: 'icon', href: '/favicon.svg' }]
     ],
     themeConfig: {
-        logo: '/favicon.svg',
+        logo: {
+            light: '/logo.svg',
+            dark: '/logo-dark.svg'
+        },
         nav: [
             { text: 'Guide', link: '/' },
             { text: 'Reference', link: '/api/reference' },
