@@ -70,6 +70,7 @@ export default {
         socialLinks: [
             { icon: 'github', link: 'https://github.com/larajax/larajax' }
         ],
-        search: { provider: 'local' }
+        search: { provider: 'local' },
+        outline: [2, 3] // h2 and h3
     }
 }

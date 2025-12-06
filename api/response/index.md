@@ -2,7 +2,7 @@
 
 The response object defines how the server responds to AJAX requests. The response methods are listed below.
 
-## Method - `update()` {#update}
+### Method - `update()` {#update}
 
 Patch the DOM with some updates.
 
@@ -10,7 +10,7 @@ Patch the DOM with some updates.
 return ajax()->update(['#someElement' => 'HTML contents']);
 ```
 
-## Method - `data()` {#data}
+### Method - `data()` {#data}
 
 Provide data with the response.
 
@@ -18,7 +18,7 @@ Provide data with the response.
 return ajax()->data(['isSuccess' => true]);
 ```
 
-## Method - `redirect()` {#redirect}
+### Method - `redirect()` {#redirect}
 
 Redirect to another URL.
 
@@ -26,7 +26,7 @@ Redirect to another URL.
 return ajax()->redirect('https://octobercms.com');
 ```
 
-## Method - `reload()` {#reload}
+### Method - `reload()` {#reload}
 
 Reload the page.
 
@@ -34,7 +34,7 @@ Reload the page.
 return ajax()->reload();
 ```
 
-## Method - `flash()` {#flash}
+### Method - `flash()` {#flash}
 
 Display a flash message.
 
@@ -42,7 +42,7 @@ Display a flash message.
 return ajax()->flash("Great success!");
 ```
 
-## Method - `error()` {#error}
+### Method - `error()` {#error}
 
 Trigger an error with update lifecycle.
 
@@ -50,7 +50,7 @@ Trigger an error with update lifecycle.
 return ajax()->error("Well that didn't work!");
 ```
 
-## Method - `fatal()` {#fatal}
+### Method - `fatal()` {#fatal}
 
 Trigger an error that aborts the request.
 
@@ -58,7 +58,7 @@ Trigger an error that aborts the request.
 return ajax()->error("Something broke!");
 ```
 
-## Method - `js()` {#js}
+### Method - `js()` {#js}
 
 Load JavaScript with the response.
 
@@ -66,7 +66,7 @@ Load JavaScript with the response.
 return ajax()->js("/assets/js/widget.js");
 ```
 
-## Method - `css()` {#css}
+### Method - `css()` {#css}
 
 Load a StyleSheet with the response.
 
@@ -74,7 +74,7 @@ Load a StyleSheet with the response.
 return ajax()->js("/assets/css/widget.css");
 ```
 
-## Method - `img()` {#img}
+### Method - `img()` {#img}
 
 Load an image with the response.
 
@@ -82,7 +82,7 @@ Load an image with the response.
 return ajax()->img("/assets/css/widget.css");
 ```
 
-## Method - `browserEvent()` {#browserEvent}
+### Method - `browserEvent()` {#browserEvent}
 
 Triggers a browser event with the response.
 
@@ -110,7 +110,7 @@ addEventListener('app:stale-document', function (event) {
 });
 ```
 
-## Method - `browserEventAsync()` {#browserEventAsync}
+### Method - `browserEventAsync()` {#browserEventAsync}
 
 Triggers an asynchronous event to the browser where a promise is passed through with the event details.
 
@@ -136,7 +136,7 @@ addEventListener('app:sweet-alert', async function(event) {
 })
 ```
 
-## Method - `invalidFields()` {#invalidFields}
+### Method - `invalidFields()` {#invalidFields}
 
 Trigger invalid fields.
 
@@ -144,7 +144,7 @@ Trigger invalid fields.
 return ajax()->invalidFields(['name' => "The name field is required!"]);
 ```
 
-## Method - `partials()` {#partials}
+### Method - `partials()` {#partials}
 
 Supply partials that were requested from the browser.
 
@@ -155,7 +155,7 @@ return ajax()->partials([
 ]);
 ```
 
-## Method - `exception()` {#exception}
+### Method - `exception()` {#exception}
 
 Process an exception for common exception types.
 

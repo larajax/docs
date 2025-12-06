@@ -4,7 +4,7 @@
 
 The following are core attributes that you will reach for commonly.
 
-Attribute | Description
+<span style="display:inline-block;width:180px">Attribute</span> | Description
 --------- | ------------
 [data-request](./attributes/request.md) | Makes a request to a given AJAX handler
 [data-request-data](./attributes/request-data.md) | Supplies postback data with the request
@@ -15,7 +15,7 @@ Attribute | Description
 
 All other attributes are specified below.
 
-Attribute | Description
+<span style="display:inline-block;width:180px">Attribute</span> | Description
 --------- | ------------
 [data-request-query](./attributes/request-query.md) | Supplies query data with the request and modifies the URL
 [data-request-confirm](./attributes/request-confirm.md) | Displays a confirmation message before sending the request.
@@ -28,7 +28,7 @@ Attribute | Description
 
 ## Available Events
 
-Event | Target | Description
+<span style="display:inline-block;width:180px">Event</span> | Target | Description
 ----- | ------ | ------------
 [ajax:before-send](./events/index.md#ajax-before-send) | window | fired before sending a request.
 [ajax:before-update](./events/index.md#ajax:before-update) | trigger | fired after the request is complete, but before the page is updated.
@@ -46,7 +46,7 @@ Event | Target | Description
 
 ## Available Response Methods
 
-Method | Description
+<span style="display:inline-block;width:180px">Method</span> | Description
 ------ | ------------
 [update()](./response/index.md#update) | adds DOM updates to the AJAX response
 [data()](./response/index.md#data) | adds response data to the response
@@ -66,14 +66,14 @@ Method | Description
 
 ### Available Override Methods
 
-Method | Description
+<span style="display:inline-block;width:180px">Method</span> | Description
 ------ | ------------
 [registerCustomResponse()](./response/index.md#register-custom-response) | replaces the `AjaxResponse` class with a custom one
 [registerGlobalComponent()](./response/index.md#register-global-component) | register a stateless component class available globally
 
 ## JavaScript API Reference
 
-Method | Description
+<span style="display:inline-block;width:180px">Method</span> | Description
 ------ | ------------
 [jax.ajax()](./framework/index.md#ajax) | issues an AJAX request
 [jax.request()](./framework/index.md#request) | issues an AJAX request with a form element
@@ -84,7 +84,7 @@ Method | Description
 
 ### Turbo Router Functions
 
-Method | Description
+<span style="display:inline-block;width:180px">Method</span> | Description
 ------ | ------------
 [jax.useTurbo()](./framework/index.md#use-turbo) | returns true if turbo routing is enabled
 [jax.pageReady()](./framework/index.md#page-ready) | waits for the page to be ready
@@ -92,7 +92,7 @@ Method | Description
 
 ### Hot Control Functions
 
-Method | Description
+<span style="display:inline-block;width:180px">Method</span> | Description
 ------ | ------------
 [jax.registerControl()](./framework/index.md#register-control) | registers a new hot control
 [jax.importControl()](./framework/index.md#import-control) | returns a registered hot control class definition

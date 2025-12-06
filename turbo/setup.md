@@ -6,7 +6,7 @@ subtitle: Learn how links are routed using the AJAX framework.
 Turbo routing is an implementation of PJAX (push state and AJAX) that gives the performance benefits of a single page application without the added complexity of a client-side framework. When you click a link, the page is automatically swapped client-side without the cost of a full page load.
 
 ```twig
-{% framework turbo %}
+<meta name="turbo-visit-control" content="enable" />
 ```
 
 ## Routing Links

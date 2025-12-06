@@ -10,7 +10,7 @@ Built by the team behind [October CMS](https://octobercms.com), this pattern has
 
 ## First Action
 
-Start with a tiny view:
+Start with `data-request` in a tiny view:
 
 ```html
 <!-- View -->
@@ -25,7 +25,7 @@ Start with a tiny view:
 <div id="message"></div>
 ```
 
-Then add to the controller:
+Then add a **handler method** to the controller:
 
 ```php
 // Controller
@@ -45,7 +45,7 @@ You read this flow in one pass. Form fires the action. Controller runs. Page upd
 
 ## What Problem Are We Solving?
 
-Primarily Larajax is useful for defining _internal_ APIs that are defined and consumed by the same application. We often need to define two types of endpoints, pages that render to the browser and API endpoints that perform actions (usually RESTful).
+Primarily Larajax is useful for defining private APIs that are defined and consumed by the same application. We often need to define two types of endpoints, pages that render to the browser and API endpoints that perform actions (usually RESTful).
 
 The problem with using RESTful endpoints as internal APIs is they can quickly get disorganised, since they are global to the application by default. For example, a simple profile page may look like this:
 
@@ -101,9 +101,12 @@ class UserProfileController extends LarajaxController
 
 To learn more about how to define a component, visit the [components article](./guide/defining-components.md).
 
-## Markup Tools Included
+## What About Calling The APIs?
 
-Larajax also ships with a powerful client-side framework, that let's you call your AJAX handlers directly in HTML, without writing much JavaScript at all.
+Larajax also ships with a powerful client-side framework, that let's you call your AJAX handlers directly in HTML, or called from your JavaScript using the same pattern.
+
+### Markup Tools
+
 
 This submits the AJAX call to **the current URL** with the handler method inside the `X-AJAX-HANDLER` request header.
 
@@ -127,7 +130,7 @@ When a request takes place inside a form, the form data is automatically seriali
 
 The [AJAX Handlers Guide](./guide/ajax-handlers.md) has more information on what you can do here.
 
-## AJAX Framework Included
+### JavaScript Tools
 
 The `jax.ajax()` JavaScript function supports calling AJAX handlers within your JavaScript code, allowing for greater flexibility.
 
@@ -143,7 +146,7 @@ The `jax.request()` function is used when you want to serialize the input conten
 <form>
     <input type="email" name="email" value="" />
 
-    <button onclick="jax.request(this.form, 'onCheckUserEmail')">
+    <button onclick="jax.request(this, 'onCheckUserEmail')">
         Check Email
     </button>
 </form>
