@@ -1,10 +1,10 @@
-# Getting Started
+# What is Larajax?
 
-Building for the web often feels more complicated than it should be. Larajax cuts the noise so you can focus on what your app needs. You skip the usual setup. You skip the front-end clutter. You get clear, readable code.
+Larajax lets your HTML call **Laravel controller methods** directly using `data-request`. No public API routes. No duplicated endpoints. Each page keeps its own actions.
 
-Larajax gives you small controller actions you call straight from the view. They behave like API endpoints but stay inside the controller that uses them.
+You define small, focused controller handlers and trigger them straight from the view. They behave like API calls but stay scoped to the page that uses them.
 
-On the browser side, Larajax includes a light JS helper. Your markup triggers the action, and it sends the request and applies the response for you.
+On the browser side, Larajax ships with a **light JavaScript framework**. Your markup fires the action. Larajax sends the request and applies the response. You can also call handlers directly with `jax.ajax()` when you need full control.
 
 Built by the team behind [October CMS](https://octobercms.com), this pattern has been battle-tested for years and is now available for the [Laravel Framework](http://laravel.com/) as a standalone package.
 
@@ -43,7 +43,7 @@ public function onSave()
 
 You read this flow in one pass. Form fires the action. Controller runs. Page updates. Simple and clear.
 
-## What problem are we solving?
+## What Problem Are We Solving?
 
 Primarily Larajax is useful for defining _internal_ APIs that are defined and consumed by the same application. We often need to define two types of endpoints, pages that render to the browser and API endpoints that perform actions (usually RESTful).
 
@@ -86,7 +86,7 @@ Notice that the API endpoints all start with `onSomething`, this is a dedicated 
 
 This is a better way to organise routes and keep API logic contained to controllers that actually use them. But now since they are local and not global, what about reuse, what if we want to include the `onCheckUserEmail` AJAX handler on more than one controller?
 
-### Enter Components
+#### Components Solve Reusability
 
 Every controller class supports a `$components` property where components can be defined. The AJAX handlers will be extracted from these classes and included in the controller.
 
@@ -100,3 +100,53 @@ class UserProfileController extends LarajaxController
 ```
 
 To learn more about how to define a component, visit the [components article](./guide/defining-components.md).
+
+## Markup Tools Included
+
+Larajax also ships with a powerful client-side framework, that let's you call your AJAX handlers directly in HTML, without writing much JavaScript at all.
+
+This submits the AJAX call to **the current URL** with the handler method inside the `X-AJAX-HANDLER` request header.
+
+```html
+<button data-request="onCheckUserEmail">
+    Check Email
+</button>
+```
+
+When a request takes place inside a form, the form data is automatically serialized and included along with the request.
+
+```html
+<form>
+    <input type="email" name="email" value="" />
+
+    <button data-request="onCheckUserEmail">
+        Check Email
+    </button>
+</form>
+```
+
+The [AJAX Handlers Guide](./guide/ajax-handlers.md) has more information on what you can do here.
+
+## AJAX Framework Included
+
+The `jax.ajax()` JavaScript function supports calling AJAX handlers within your JavaScript code, allowing for greater flexibility.
+
+```html
+<button onclick="jax.ajax('onCheckUserEmail'); return false">
+    Check Email
+</button>
+```
+
+The `jax.request()` function is used when you want to serialize the input contents of a container.
+
+```js
+<form>
+    <input type="email" name="email" value="" />
+
+    <button onclick="jax.request(this.form, 'onCheckUserEmail')">
+        Check Email
+    </button>
+</form>
+```
+
+The [JavaScript Guide](./guide/ajax-javscript.md) describes this is more detail.

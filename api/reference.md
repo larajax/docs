@@ -11,7 +11,7 @@ Attribute | Description
 [data-request-trigger](./attributes/request-trigger.md) | The event that triggers the request
 [data-request-update](./attributes/request-update.md) | Request specified partial view updates
 
-## Additional Attribute Reference
+### Additional Attribute Reference
 
 All other attributes are specified below.
 
@@ -64,9 +64,38 @@ Method | Description
 [partials()](./response/index.md#partials) | provides multiple requested partial responses to the browser
 [exception()](./response/index.md#exception) | processes an exception as an response
 
-## Available Override Methods
+### Available Override Methods
 
 Method | Description
 ------ | ------------
 [registerCustomResponse()](./response/index.md#register-custom-response) | replaces the `AjaxResponse` class with a custom one
 [registerGlobalComponent()](./response/index.md#register-global-component) | register a stateless component class available globally
+
+## JavaScript API Reference
+
+Method | Description
+------ | ------------
+[jax.ajax()](./framework/index.md#ajax) | issues an AJAX request
+[jax.request()](./framework/index.md#request) | issues an AJAX request with a form element
+[jax.flashMsg()](./framework/index.md#flash-msg) | displays a flash message
+[jax.progressBar()](./framework/index.md#progress-bar) | displays the progress bar
+[jax.attachLoader()](./framework/index.md#attach-loader) | flags an element as loading
+[jax.waitFor()](./framework/index.md#wait-for) | waits for a an object to exist
+
+### Turbo Router Functions
+
+Method | Description
+------ | ------------
+[jax.useTurbo()](./framework/index.md#use-turbo) | returns true if turbo routing is enabled
+[jax.pageReady()](./framework/index.md#page-ready) | waits for the page to be ready
+[jax.visit()](./framework/index.md#visit) | updates the page location
+
+### Hot Control Functions
+
+Method | Description
+------ | ------------
+[jax.registerControl()](./framework/index.md#register-control) | registers a new hot control
+[jax.importControl()](./framework/index.md#import-control) | returns a registered hot control class definition
+[jax.observeControl()](./framework/index.md#observe-control) | attach a hot control and return the instance
+[jax.fetchControl()](./framework/index.md#fetch-control) | fetch an instance on a single element
+[jax.fetchControls()](./framework/index.md#fetch-controls) | fetch instances on a multiple elements
