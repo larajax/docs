@@ -168,7 +168,7 @@ catch (Exception $ex) {
 }
 ```
 
-## Custom Responses
+## Override - `registerCustomResponse` {#register-custom-response}
 
 Let's define a custom class that introduces a `sweetAlert` method to the `ajax()` function.
 
@@ -198,8 +198,16 @@ Then inside a service provider registration method, call the `App::bind` method 
 ```php
 public function register()
 {
-    App::bind(\Larajax\Classes\AjaxResponse::class, \App\Classes\AjaxResponse::class);
+    ajax()->registerCustomResponse(\App\Classes\AjaxResponse::class);
 }
 ```
 
 Now when `ajax()` is called it will return your custom class.
+
+## Override - `registerGlobalComponent` {#register-global-component}
+
+Register a component as global using the static `registerGlobalComponent` method found on the `ajax()` helper.
+
+```php
+ajax()::registerGlobalComponent(\App\Components\GlobalComponent::class);
+```

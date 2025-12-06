@@ -59,14 +59,14 @@ Method | Description
 [css()](./response/index.md#css) | adds a StyleSheet file or files to load with the output
 [img()](./response/index.md#img) | adds an image file or files to load with the output
 [browserEvent()](./response/index.md#browserEvent) | adds browser event dispatch with the response
-[browserEventaSYNC()](./response/index.md#browserEventAsync) | adds asynchronous browser event dispatch with the response
+[browserEventAsync()](./response/index.md#browserEventAsync) | adds asynchronous browser event dispatch with the response
 [invalidFields()](./response/index.md#invalidFields) | adds invalid form fields to the response
 [partials()](./response/index.md#partials) | provides multiple requested partial responses to the browser
 [exception()](./response/index.md#exception) | processes an exception as an response
 
-## Available Helper Methods
+## Available Override Methods
 
 Method | Description
 ------ | ------------
-[wrap()](#) | wrap arbitrary handler output into an AjaxResponse
-[registerGlobalComponent()](#) | register a stateless component class available globally
+[registerCustomResponse()](./response/index.md#register-custom-response) | replaces the `AjaxResponse` class with a custom one
+[registerGlobalComponent()](./response/index.md#register-global-component) | register a stateless component class available globally

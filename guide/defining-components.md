@@ -66,7 +66,7 @@ public function __construct()
 
 ## Global Components
 
-In some cases, you need a component and its interface to be globally available. Such as a notifcation bell with a handler called `onShowNotifications`.
+In some cases, you need a component and its interface to be globally available. Such as a notification bell with a handler called `onShowNotifications`.
 
 The best way to achieve this is to define a generic `GlobalComponent` class, and within this class, define sub components that should be registered globally throughout the application.
 
