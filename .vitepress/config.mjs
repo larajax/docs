@@ -13,7 +13,8 @@ const sharedSidebar = [
             { text: 'AJAX Handlers', link: '/guide/ajax-handlers' },
             { text: 'Responses', link: '/guide/ajax-responses' },
             { text: 'Form Data', link: '/guide/form-data' },
-            { text: 'Query Data', link: '/guide/query-data' }
+            { text: 'Query Data', link: '/guide/query-data' },
+            { text: 'JavaScript API', link: '/guide/ajax-javascript' }
         ]
     },
     {
@@ -21,7 +22,8 @@ const sharedSidebar = [
         items: [
             { text: 'Defining Components', link: '/guide/defining-components' },
             { text: 'Form Validation', link: '/guide/form-validation' },
-            { text: 'File Uploads', link: '/guide/file-uploads' },
+            { text: 'Loading Indicators', link: '/guide/loading-indicators' },
+            { text: 'Downloads & Uploads', link: '/guide/download-upload' },
             { text: 'Flash Messages', link: '/guide/flash-messages' }
         ]
     },

@@ -10,7 +10,7 @@ Install the Laravel library uses Composer:
 composer require larajax/larajax
 ```
 
-## Client-Side
+## Client-Side Installation
 
 ### Vendor Directory Reference
 
@@ -18,11 +18,11 @@ If you have installed the `larajax/larajax` package via Composer, then the clien
 
 If you want the complete framework, include the bundle JS file (recommended):
 
-- vendor/larajax/larajax/resources/dist/framework-bundle.min.js
+- `vendor/larajax/larajax/resources/dist/framework-bundle.min.js`
 
 If you only want the AJAX request library with no bells and whistles:
 
-- vendor/larajax/larajax/resources/dist/framework.min.js
+- `vendor/larajax/larajax/resources/dist/framework.min.js`
 
 ### Installation via NPM
 

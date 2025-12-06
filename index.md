@@ -6,7 +6,7 @@ You define small, focused controller handlers and trigger them straight from the
 
 On the browser side, Larajax ships with a **light JavaScript framework**. Your markup fires the action. Larajax sends the request and applies the response. You can also call handlers directly with `jax.ajax()` when you need full control.
 
-Built by the team behind [October CMS](https://octobercms.com), this pattern has been battle-tested for years and is now available for the [Laravel Framework](http://laravel.com/) as a standalone package.
+This pattern was refined for years in production by the team behind [October CMS](https://octobercms.com) and is now available as a standalone package for the [Laravel Framework](http://laravel.com/).
 
 ## First Action
 
@@ -45,9 +45,14 @@ You read this flow in one pass. Form fires the action. Controller runs. Page upd
 
 ## What Problem Are We Solving?
 
-Primarily Larajax is useful for defining private APIs that are defined and consumed by the same application. We often need to define two types of endpoints, pages that render to the browser and API endpoints that perform actions (usually RESTful).
+Most Laravel applications end up splitting behavior across two separate layers:
 
-The problem with using RESTful endpoints as internal APIs is they can quickly get disorganised, since they are global to the application by default. For example, a simple profile page may look like this:
+- Page routes that render views
+- API routes that perform actions
+
+This separation seems clean at first, but over time those internal APIs begin to spread across the application. They are global by default, their ownership becomes unclear, and simple page-level behavior becomes harder to reason about.
+
+A basic profile page often grows into something like this:
 
 ```php
 Route::get('/user-profile', ...);
@@ -57,15 +62,18 @@ Route::delete('/user-profile', ...);
 Route::post('/user-profile/check-email', ...);
 ```
 
-With Larajax, we solve this by defining a single route for the page entry point only.
+Each route is valid on its own, but together they expose page-specific behavior as part of the global routing surface. Actions that only exist to support one screen now live at the same level as true application-wide APIs.
+
+Larajax changes this by reducing the page to a single entry route.
 
 ```php
 Route::any('/user-profile', [UserProfileController::class, 'index']);
 ```
 
-Note we use the `Route::any` method to accept any verb. Larajax focuses on GET and POST, where GET is a page endpoint and POST is an API endpoint.
-
-Then inside the `UserProfileController` class, we expose API endpoints localized to that entry point only (meaning, they won't work anywhere else but on that controller's endpoint).
+With this approach:
+- GET renders the page
+- POST handles actions
+- Page behavior stays anchored to a single controller
 
 ```php
 class UserProfileController extends LarajaxController
@@ -82,13 +90,18 @@ class UserProfileController extends LarajaxController
 }
 ```
 
-Notice that the API endpoints all start with `onSomething`, this is a dedicated naming convention that can be spotted immediately as an API endpoint.
+Each handler follows a clear `onSomething` naming convention, which makes action methods easy to identify at a glance. As a result:
 
-This is a better way to organise routes and keep API logic contained to controllers that actually use them. But now since they are local and not global, what about reuse, what if we want to include the `onCheckUserEmail` AJAX handler on more than one controller?
+- Routes stay minimal
+- Page behavior stays local
+- Controllers fully own their actions
+
+Once actions are local to a page instead of global, a natural question follows:
+how do you reuse them across pages? Larajax solves this with **components**.
 
 #### Components Solve Reusability
 
-Every controller class supports a `$components` property where components can be defined. The AJAX handlers will be extracted from these classes and included in the controller.
+Every controller supports a `$components` property where reusable behavior can be defined. Any AJAX handlers found in those component classes are automatically registered on the controller that includes them.
 
 ```php
 class UserProfileController extends LarajaxController
@@ -99,16 +112,21 @@ class UserProfileController extends LarajaxController
 }
 ```
 
-To learn more about how to define a component, visit the [components article](./guide/defining-components.md).
+Components can also define components of their own, which allows reuse to scale without flattening everything into a global space. This keeps behavior modular and intentional while preserving the same containment model that Larajax uses for controllers.
+
+::: tip
+To learn more about how to define a component, see the [Components Guide](./guide/defining-components.md).
+:::
 
 ## What About Calling The APIs?
 
-Larajax also ships with a powerful client-side framework, that let's you call your AJAX handlers directly in HTML, or called from your JavaScript using the same pattern.
+Larajax includes a small client-side layer that lets you call your server-side handlers either from HTML or directly from JavaScript using the same naming pattern.
+
+When a request is made, it is sent to the **current page URL** and the target handler is passed in the `X-AJAX-HANDLER` request header. This keeps all requests scoped to the active page route while avoiding the need for exposed API endpoints.
 
 ### Markup Tools
 
-
-This submits the AJAX call to **the current URL** with the handler method inside the `X-AJAX-HANDLER` request header.
+The `data-request` attribute is the primary way to trigger an AJAX handler from HTML.
 
 ```html
 <button data-request="onCheckUserEmail">
@@ -116,7 +134,7 @@ This submits the AJAX call to **the current URL** with the handler method inside
 </button>
 ```
 
-When a request takes place inside a form, the form data is automatically serialized and included along with the request.
+When a request is triggered from inside a form, the form inputs are automatically serialized and included with the request.
 
 ```html
 <form>
@@ -128,11 +146,13 @@ When a request takes place inside a form, the form data is automatically seriali
 </form>
 ```
 
-The [AJAX Handlers Guide](./guide/ajax-handlers.md) has more information on what you can do here.
+::: tip
+For a full list of supported attributes and behaviors, see the [AJAX Handlers Guide](./guide/ajax-handlers.md).
+:::
 
 ### JavaScript Tools
 
-The `jax.ajax()` JavaScript function supports calling AJAX handlers within your JavaScript code, allowing for greater flexibility.
+When markup alone is not enough, the same handlers can be called directly from JavaScript using `jax.ajax()`.
 
 ```html
 <button onclick="jax.ajax('onCheckUserEmail'); return false">
@@ -140,7 +160,7 @@ The `jax.ajax()` JavaScript function supports calling AJAX handlers within your 
 </button>
 ```
 
-The `jax.request()` function is used when you want to serialize the input contents of a container.
+When you want to serialize the input values of a container or form explicitly, you can use `jax.request()` instead.
 
 ```js
 <form>
@@ -152,4 +172,9 @@ The `jax.request()` function is used when you want to serialize the input conten
 </form>
 ```
 
-The [JavaScript Guide](./guide/ajax-javascript.md) describes this is more detail.
+This gives you the same request model as data-request, but with full control over when and how the call is made.
+
+
+::: tip
+More details on working with JavaScript are available in the [JavaScript Guide](./guide/ajax-javascript.md).
+:::

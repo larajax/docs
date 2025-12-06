@@ -27,11 +27,10 @@ When submitting a request, all data inside the nearest form is included and acts
 
 ```html
 <form data-request="onDoSomething">
-
     <input type="text" name="foo" value="bar" />
-
-    <button type="submit">Go!</button>
-
+    <button type="submit">
+        Go!
+    </button>
 </form>
 ```
 
@@ -46,8 +45,9 @@ Even if the request is triggered from inside the form the data will be captured.
 ```html
 <form>
     <input type="text" name="foo" value="bar" />
-
-    <button type="button" data-request="onDoSomething">Go!</button>
+    <button type="button" data-request="onDoSomething">
+        Go!
+    </button>
 </form>
 ```
 

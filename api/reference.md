@@ -8,6 +8,7 @@ Attribute | Description
 --------- | ------------
 [data-request](./attributes/request.md) | makes a request to a given AJAX handler
 [data-request-data](./attributes/request-data.md) | supplies postback data with the request
+[data-request-query](./attributes/request-query.md) | supplies query data with the request and modifies the URL
 [data-request-trigger](./attributes/request-trigger.md) | the event that triggers the request
 [data-request-update](./attributes/request-update.md) | request specified partial view updates
 
@@ -17,7 +18,6 @@ All other attributes are specified below.
 
 Attribute | Description
 --------- | ------------
-[data-request-query](./attributes/request-query.md) | supplies query data with the request and modifies the URL
 [data-request-confirm](./attributes/request-confirm.md) | displays a confirmation message before sending the request.
 [data-request-before-send](./attributes/request-before-send.md) | execute JavaScript before the request is sent.
 [data-request-before-update](./attributes/request-before-update.md) | execute JavaScript before the page contents are updated.
