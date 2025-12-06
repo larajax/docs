@@ -1,0 +1,1 @@
+import{_ as i,c as a,o as t,ag as n}from"./chunks/framework.B-XtCDNB.js";const o=JSON.parse('{"title":"What is Larajax?","description":"","frontmatter":{},"headers":[],"relativePath":"index.md","filePath":"index.md"}'),h={name:"index.md"};function e(l,s,p,k,r,d){return t(),a("div",null,[...s[0]||(s[0]=[n("",40)])])}const g=i(h,[["render",e]]);export{o as __pageData,g as default};
