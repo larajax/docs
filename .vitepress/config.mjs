@@ -50,6 +50,7 @@ export default {
         ['link', { rel: 'icon', href: '/favicon.svg' }]
     ],
     themeConfig: {
+        siteTitle: false,
         logo: {
             light: '/logo.svg',
             dark: '/logo-dark.svg'
