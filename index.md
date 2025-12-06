@@ -152,4 +152,4 @@ The `jax.request()` function is used when you want to serialize the input conten
 </form>
 ```
 
-The [JavaScript Guide](./guide/ajax-javscript.md) describes this is more detail.
+The [JavaScript Guide](./guide/ajax-javascript.md) describes this is more detail.

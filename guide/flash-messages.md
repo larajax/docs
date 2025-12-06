@@ -39,7 +39,7 @@ To only display a specific flash message type, you may pass the value to the att
 <form data-request-flash="success,warning"></form>
 ```
 
-When using [validation features](./validation.md) in combination with the `data-request-flash` attribute, the validation errors take priority and suppress the flash message. To display both at the same time, include the **validate** type with the attribute.
+When using [validation features](../guide/form-validation.md) in combination with the `data-request-flash` attribute, the validation errors take priority and suppress the flash message. To display both at the same time, include the **validate** type with the attribute.
 
 ```html
 <form
