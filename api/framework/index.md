@@ -52,6 +52,17 @@ jax.attachLoader.show('.my-element');
 jax.attachLoader.hide('.my-element');
 ```
 
+### Method - `pageReady` {#page-ready}
+
+Call code when the page and scripts are ready. The function returns a promise that is resolved after all the page scripts have loaded, or immediately if they are already loaded.
+
+```js
+jax.pageReady().then(() => {
+    // Page has finished loading scripts
+    // or is ready right now
+});
+```
+
 ### Method - `waitFor` {#wait-for}
 
 Wait for an object or variable to exist. The function returns a promise that is resolved when the variable is found.
@@ -72,6 +83,56 @@ jax.waitFor(() => window.propName, 2000).then(() => {
 });
 ```
 
+### Method - `dispatch` {#dispatch}
+
+Triggers a global event on the `document` HTML element.
+
+```js
+jax.dispatch('app:custom-event');
+```
+
+### Method - `trigger` {#trigger}
+
+Triggers an event on the specified HTML element.
+
+```js
+jax.trigger(element, 'app:custom-event');
+```
+
+### Method - `on` {#on}
+
+Attach an event handler function for one or more events to the selected elements.
+
+```js
+jax.on(element, 'click', () => {
+    console.log("Element was clicked!");
+});
+```
+
+To attach to one element and listen on another, specify the target as the third argument.
+
+```js
+jax.on(element, 'click', 'button', () => {
+    console.log("Button was clicked!");
+});
+```
+
+### Method - `off` {#off}
+
+Remove an event handler.
+
+```js
+jax.off(element, 'click');
+```
+
+### Method - `values` {#values}
+
+Returns the input values that would resolve for a given element for a request.
+
+```js
+jax.values(document.querySelector('#myForm'));
+```
+
 ## Turbo Router Functions
 
 ### Method - `useTurbo` {#use-turbo}
@@ -82,17 +143,6 @@ Checks if the turbo router is enabled and should be used.
 if (jax.useTurbo && jax.useTurbo()) {
     // Use PJAX
 }
-```
-
-### Method - `pageReady` {#page-ready}
-
-Call code when the page and scripts are ready. The function returns a promise that is resolved after all the page scripts have loaded, or immediately if they are already loaded.
-
-```js
-jax.pageReady().then(() => {
-    // Page has finished loading scripts
-    // or is ready right now
-});
 ```
 
 ### Method - `visit` {#visit}

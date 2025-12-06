@@ -4,7 +4,7 @@
 
 The following are core attributes that you will reach for commonly.
 
-<span style="display:inline-block;width:180px">Attribute</span> | Description
+Attribute | Description
 --------- | ------------
 [data-request](./attributes/request.md) | Makes a request to a given AJAX handler
 [data-request-data](./attributes/request-data.md) | Supplies postback data with the request
@@ -15,7 +15,7 @@ The following are core attributes that you will reach for commonly.
 
 All other attributes are specified below.
 
-<span style="display:inline-block;width:180px">Attribute</span> | Description
+Attribute | Description
 --------- | ------------
 [data-request-query](./attributes/request-query.md) | Supplies query data with the request and modifies the URL
 [data-request-confirm](./attributes/request-confirm.md) | Displays a confirmation message before sending the request.
@@ -28,7 +28,7 @@ All other attributes are specified below.
 
 ## Available Events
 
-<span style="display:inline-block;width:180px">Event</span> | Target | Description
+Event | Target | Description
 ----- | ------ | ------------
 [ajax:before-send](./events/index.md#ajax-before-send) | window | fired before sending a request.
 [ajax:before-update](./events/index.md#ajax:before-update) | trigger | fired after the request is complete, but before the page is updated.
@@ -46,7 +46,7 @@ All other attributes are specified below.
 
 ## Available Response Methods
 
-<span style="display:inline-block;width:180px">Method</span> | Description
+Method | Description
 ------ | ------------
 [update()](./response/index.md#update) | adds DOM updates to the AJAX response
 [data()](./response/index.md#data) | adds response data to the response
@@ -66,36 +66,45 @@ All other attributes are specified below.
 
 ### Available Override Methods
 
-<span style="display:inline-block;width:180px">Method</span> | Description
+Method | Description
 ------ | ------------
 [registerCustomResponse()](./response/index.md#register-custom-response) | replaces the `AjaxResponse` class with a custom one
 [registerGlobalComponent()](./response/index.md#register-global-component) | register a stateless component class available globally
 
 ## JavaScript API Reference
 
-<span style="display:inline-block;width:180px">Method</span> | Description
+Method | Description
 ------ | ------------
 [jax.ajax()](./framework/index.md#ajax) | issues an AJAX request
 [jax.request()](./framework/index.md#request) | issues an AJAX request with a form element
 [jax.flashMsg()](./framework/index.md#flash-msg) | displays a flash message
 [jax.progressBar()](./framework/index.md#progress-bar) | displays the progress bar
 [jax.attachLoader()](./framework/index.md#attach-loader) | flags an element as loading
+[jax.pageReady()](./framework/index.md#page-ready) | waits for the page to be ready
 [jax.waitFor()](./framework/index.md#wait-for) | waits for a an object to exist
+[jax.dispatch()](./framework/index.md#dispatch) | triggers a global event
+[jax.trigger()](./framework/index.md#trigger) | triggers an event on an element
+[jax.on()](./framework/index.md#on) | triggers an event on an element
+[jax.off()](./framework/index.md#off) | triggers an event on an element
+[jax.values()](./framework/index.md#values) | extract the input values from a container element.
 
 ### Turbo Router Functions
 
-<span style="display:inline-block;width:180px">Method</span> | Description
+Method | Description
 ------ | ------------
 [jax.useTurbo()](./framework/index.md#use-turbo) | returns true if turbo routing is enabled
-[jax.pageReady()](./framework/index.md#page-ready) | waits for the page to be ready
 [jax.visit()](./framework/index.md#visit) | updates the page location
 
 ### Hot Control Functions
 
-<span style="display:inline-block;width:180px">Method</span> | Description
+Method | Description
 ------ | ------------
 [jax.registerControl()](./framework/index.md#register-control) | registers a new hot control
 [jax.importControl()](./framework/index.md#import-control) | returns a registered hot control class definition
 [jax.observeControl()](./framework/index.md#observe-control) | attach a hot control and return the instance
 [jax.fetchControl()](./framework/index.md#fetch-control) | fetch an instance on a single element
 [jax.fetchControls()](./framework/index.md#fetch-controls) | fetch instances on a multiple elements
+
+<style>
+thead th:first-child { width: 220px; }
+</style>
