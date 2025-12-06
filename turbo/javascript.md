@@ -63,7 +63,7 @@ To execute inline JavaScript code only once, regardless of first page load or PJ
 ## Making Controls Idempotent
 
 ::: aside
-October CMS provides a complimentary library that is used to make building [idempotent controls](../controls/definition.md) easy.
+Larajax provides a complimentary library that is used to make building [idempotent controls](../controls/definition.md) easy.
 :::
 
 When a page visit occurs and JavaScript components are initialized, it is important that these function are idempotent. In simple terms, an idempotent function is safe to apply multiple times without changing the result beyond its initial application.
@@ -104,7 +104,7 @@ addEventListener('page:unload', function() {
 ```
 
 ::: tip
-October CMS includes a complimentary library for [building disposable controls](../controls/definition.md).
+Larajax includes a complimentary library for [building disposable controls](../controls/definition.md).
 :::
 
 ## Pause Rendering

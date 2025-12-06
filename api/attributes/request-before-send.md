@@ -1,7 +1,25 @@
 # `data-request-before-send`
 
-The `data` and `context` variables are available inside the functions
+Specifies JavaScript code to execute directly before the request is sent.
 
 ```html
-data-request-before-send="return false"
+<button
+    data-request="onSend"
+    data-request-before-send="console.log('Sending...')">
+    Ship It!
+</button>
+```
+
+The `data` and `context` variables are available inside the functions.
+
+```html
+<button
+    data-request-before-send="console.log(context)">
+```
+
+If the function returns `false`, the request is aborted.
+
+```html
+<button
+    data-request-before-send="return false">
 ```

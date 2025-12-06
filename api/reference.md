@@ -6,10 +6,10 @@ The following are core attributes that you will reach for commonly.
 
 Attribute | Description
 --------- | ------------
-[data-request](./attributes/request.md) | Makes a request to a given AJAX handler
-[data-request-data](./attributes/request-data.md) | Supplies postback data with the request
-[data-request-trigger](./attributes/request-trigger.md) | The event that triggers the request
-[data-request-update](./attributes/request-update.md) | Request specified partial view updates
+[data-request](./attributes/request.md) | makes a request to a given AJAX handler
+[data-request-data](./attributes/request-data.md) | supplies postback data with the request
+[data-request-trigger](./attributes/request-trigger.md) | the event that triggers the request
+[data-request-update](./attributes/request-update.md) | request specified partial view updates
 
 ### Additional Attribute Reference
 
@@ -17,14 +17,18 @@ All other attributes are specified below.
 
 Attribute | Description
 --------- | ------------
-[data-request-query](./attributes/request-query.md) | Supplies query data with the request and modifies the URL
-[data-request-confirm](./attributes/request-confirm.md) | Displays a confirmation message before sending the request.
-[data-request-before-send](./attributes/request-before-send.md) | Execute JavaScript before the request is sent.
-[data-request-before-update](./attributes/request-before-update.md) | Execute JavaScript before the page contents are updated.
-[data-request-success](./attributes/request-success.md) | Execute JavaScript on a successful request.
-[data-request-error](./attributes/request-error.md) | Execute JavaScript on a failed request.
-[data-request-complete](./attributes/request-complete.md) | Execute JavaScript on every completed request.
-[data-request-cancel](./attributes/request-cancel.md) | Execute JavaScript if the user aborts the request or cancels it via a confirmation dialog.
+[data-request-query](./attributes/request-query.md) | supplies query data with the request and modifies the URL
+[data-request-confirm](./attributes/request-confirm.md) | displays a confirmation message before sending the request.
+[data-request-before-send](./attributes/request-before-send.md) | execute JavaScript before the request is sent.
+[data-request-before-update](./attributes/request-before-update.md) | execute JavaScript before the page contents are updated.
+[data-request-success](./attributes/request-success.md) | execute JavaScript on a successful request.
+[data-request-error](./attributes/request-error.md) | execute JavaScript on a failed request.
+[data-request-complete](./attributes/request-complete.md) | execute JavaScript on every completed request.
+[data-request-cancel](./attributes/request-cancel.md) | execute JavaScript if the user aborts the request or cancels it via a confirmation dialog.
+[data-request-redirect](./attributes/request-redirect.md) | specifies a URL to redirect the browser after the successful AJAX request.
+[data-request-message](./attributes/request-message.md) | displays a progress message with the specified text, shown while the request is running.
+[data-request-download](./attributes/request-download.md) | when specified file downloads are accepted with a `Content-Disposition` response.
+[data-request-files](./attributes/request-files.md) | when specified the request will accept file uploads using the `FormData` interface.
 
 ## Available Events
 

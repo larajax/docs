@@ -12,9 +12,20 @@ Issues a new AJAX request.
 jax.ajax('onSubmitContactForm')
 ```
 
+Execute a single request that shows a Flash Message using logic handler.
+
+```js
+jax.ajax('onDoSomething', {
+    flash: true,
+    handleFlashMessage: function(message, type) {
+        jax.flashMsg({ message: message, type: type });
+    }
+});
+```
+
 ### Method - `request` {#request}
 
-Submit an AJAX request using a form.
+Identical to the `ajax()` method, except it submit an AJAX request with form data included. This serializes all the inputs inside the specified element.
 
 ```js
 jax.request('#myForm', 'onSubmitContactForm')
