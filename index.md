@@ -124,7 +124,7 @@ Larajax includes a small client-side layer that lets you call your server-side h
 
 When a request is made, it is sent to the **current page URL** and the target handler is passed in the `X-AJAX-HANDLER` request header. This keeps all requests scoped to the active page route while avoiding the need for exposed API endpoints.
 
-### Markup Tools
+### From Markup
 
 The `data-request` attribute is the primary way to trigger an AJAX handler from HTML.
 
@@ -150,7 +150,7 @@ When a request is triggered from inside a form, the form inputs are automaticall
 For a full list of supported attributes and behaviors, see the [AJAX Handlers Guide](./guide/ajax-handlers.md).
 :::
 
-### JavaScript Tools
+### From JavaScript
 
 When markup alone is not enough, the same handlers can be called directly from JavaScript using `jax.ajax()`.
 
@@ -174,7 +174,39 @@ When you want to serialize the input values of a container or form explicitly, y
 
 This gives you the same request model as data-request, but with full control over when and how the call is made.
 
-
 ::: tip
 More details on working with JavaScript are available in the [JavaScript Guide](./guide/ajax-javascript.md).
+:::
+
+### From the Controller
+
+Larajax provides a global `ajax()` helper that returns an instance of the `Larajax\Classes\AjaxResponse` class. This response object lets you compose multiple instructions into a single server response and describe exactly how the browser should react.
+
+Instead of returning raw JSON and handling everything manually on the client, you describe the outcome of the action directly in the controller.
+
+```php
+function onSave()
+{
+    return ajax()
+        // Include some response data
+        ->data(['success' => true])
+
+        // Patch a DOM element
+        ->update(['#someElement' => 'Hello world!'])
+
+        // Load a JavaScript file
+        ->js('assets/js/app.js')
+
+        // Trigger a halting browser event
+        ->browserEventAsync('app:redirecting')
+
+        // Redirect the browser
+        ->redirect('https://larajax.org');
+}
+```
+
+Each call adds another instruction to the response queue. When the request completes, the client-side runtime processes these instructions in order and applies the corresponding changes to the page. This keeps your controller in full control of both the server-side logic and the resulting UI behavior.
+
+::: tip
+To explore the full set of available response operations, see the [AJAX Response Guide](./guide/ajax-responses.md).
 :::

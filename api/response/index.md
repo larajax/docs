@@ -71,7 +71,7 @@ return ajax()->js("/assets/js/widget.js");
 Load a StyleSheet with the response.
 
 ```php
-return ajax()->js("/assets/css/widget.css");
+return ajax()->css("/assets/css/widget.css");
 ```
 
 ### Method - `img()` {#img}
@@ -79,7 +79,7 @@ return ajax()->js("/assets/css/widget.css");
 Load an image with the response.
 
 ```php
-return ajax()->img("/assets/css/widget.css");
+return ajax()->img("/assets/images/logo.png");
 ```
 
 ### Method - `browserEvent()` {#browserEvent}
