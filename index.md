@@ -8,7 +8,7 @@ On the browser side, Larajax ships with a **light JavaScript framework**. Your m
 
 This pattern was refined for years in production by the team behind [October CMS](https://octobercms.com) and is now available as a standalone package for the [Laravel Framework](http://laravel.com/).
 
-## First Action
+## Your First Action
 
 Start with `data-request` in a tiny view:
 
@@ -41,9 +41,9 @@ public function onSave()
 }
 ```
 
-You read this flow in one pass. Form fires the action. Controller runs. Page updates. Simple and clear.
+You can follow the entire request cycle in one place. The form triggers the handler, the controller runs the logic, and the page updates with the response.
 
-## What Problem Are We Solving?
+## The Problem Larajax Solves
 
 Most Laravel applications end up splitting behavior across two separate layers:
 
@@ -118,7 +118,7 @@ Components can also define components of their own, which allows reuse to scale 
 To learn more about how to define a component, see the [Components Guide](./guide/defining-components.md).
 :::
 
-## What About Calling The APIs?
+## Calling Handlers
 
 Larajax includes a small client-side layer that lets you call your server-side handlers either from HTML or directly from JavaScript using the same naming pattern.
 
