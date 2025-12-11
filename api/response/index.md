@@ -66,6 +66,31 @@ Load JavaScript with the response.
 return ajax()->js("/assets/js/widget.js");
 ```
 
+You can pass attributes as a second parameter, which is useful for loading ES modules or setting other script attributes.
+
+```php
+// Load as an ES module
+return ajax()->js("/assets/js/widget.js", ['type' => 'module']);
+
+// With defer attribute
+return ajax()->js("/assets/js/widget.js", ['defer' => true]);
+```
+
+To load multiple scripts, pass an array of paths. The second parameter applies to all scripts.
+
+```php
+return ajax()->js(["/assets/js/a.js", "/assets/js/b.js"], ['type' => 'module']);
+```
+
+For different attributes per script, use an associative array where keys are paths and values are attribute arrays.
+
+```php
+return ajax()->js([
+    "/assets/js/module.js" => ['type' => 'module'],
+    "/assets/js/legacy.js" => ['defer' => true],
+]);
+```
+
 ### Method - `css()` {#css}
 
 Load a StyleSheet with the response.
@@ -74,12 +99,34 @@ Load a StyleSheet with the response.
 return ajax()->css("/assets/css/widget.css");
 ```
 
+You can pass attributes as a second parameter.
+
+```php
+// Media query
+return ajax()->css("/assets/css/print.css", ['media' => 'print']);
+```
+
+Multiple stylesheets with different attributes.
+
+```php
+return ajax()->css([
+    "/assets/css/screen.css" => ['media' => 'screen'],
+    "/assets/css/print.css" => ['media' => 'print'],
+]);
+```
+
 ### Method - `img()` {#img}
 
 Load an image with the response.
 
 ```php
 return ajax()->img("/assets/images/logo.png");
+```
+
+Multiple images can be preloaded by passing an array.
+
+```php
+return ajax()->img(["/assets/images/a.png", "/assets/images/b.png"]);
 ```
 
 ### Method - `browserEvent()` {#browserEvent}
