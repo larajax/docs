@@ -63,31 +63,31 @@ return ajax()->error("Something broke!");
 Load JavaScript with the response.
 
 ```php
-return ajax()->js("/assets/js/widget.js");
+return ajax()->js('/assets/js/widget.js');
 ```
 
 You can pass attributes as a second parameter, which is useful for loading ES modules or setting other script attributes.
 
 ```php
 // Load as an ES module
-return ajax()->js("/assets/js/widget.js", ['type' => 'module']);
+return ajax()->js('/assets/js/widget.js', ['type' => 'module']);
 
 // With defer attribute
-return ajax()->js("/assets/js/widget.js", ['defer' => true]);
+return ajax()->js('/assets/js/widget.js', ['defer' => true]);
 ```
 
 To load multiple scripts, pass an array of paths. The second parameter applies to all scripts.
 
 ```php
-return ajax()->js(["/assets/js/a.js", "/assets/js/b.js"], ['type' => 'module']);
+return ajax()->js(['/assets/js/a.js', '/assets/js/b.js'], ['type' => 'module']);
 ```
 
 For different attributes per script, use an associative array where keys are paths and values are attribute arrays.
 
 ```php
 return ajax()->js([
-    "/assets/js/module.js" => ['type' => 'module'],
-    "/assets/js/legacy.js" => ['defer' => true],
+    '/assets/js/module.js' => ['type' => 'module'],
+    '/assets/js/legacy.js' => ['defer' => true],
 ]);
 ```
 
@@ -96,22 +96,22 @@ return ajax()->js([
 Load a StyleSheet with the response.
 
 ```php
-return ajax()->css("/assets/css/widget.css");
+return ajax()->css('/assets/css/widget.css');
 ```
 
 You can pass attributes as a second parameter.
 
 ```php
 // Media query
-return ajax()->css("/assets/css/print.css", ['media' => 'print']);
+return ajax()->css('/assets/css/print.css', ['media' => 'print']);
 ```
 
 Multiple stylesheets with different attributes.
 
 ```php
 return ajax()->css([
-    "/assets/css/screen.css" => ['media' => 'screen'],
-    "/assets/css/print.css" => ['media' => 'print'],
+    '/assets/css/screen.css' => ['media' => 'screen'],
+    '/assets/css/print.css' => ['media' => 'print'],
 ]);
 ```
 
@@ -120,13 +120,13 @@ return ajax()->css([
 Load an image with the response.
 
 ```php
-return ajax()->img("/assets/images/logo.png");
+return ajax()->img('/assets/images/logo.png');
 ```
 
 Multiple images can be preloaded by passing an array.
 
 ```php
-return ajax()->img(["/assets/images/a.png", "/assets/images/b.png"]);
+return ajax()->img(['/assets/images/a.png', '/assets/images/b.png']);
 ```
 
 ### Method - `browserEvent()` {#browserEvent}
