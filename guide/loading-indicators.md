@@ -40,7 +40,7 @@ jax.progressBar.hide();
 
 ## Loading Button
 
-When submitting forms, users can accidentally click the button twice and cause a double submission, and this is solved using a loading button. During AJAX requests, button elements that have the `data-attach-loading` attribute will be disabled, and a CSS class `oc-attach-loader` added. This class will spawn a loading spinner on button and anchor elements using the `:after` CSS selector.
+When submitting forms, users can accidentally click the button twice and cause a double submission, and this is solved using a loading button. During AJAX requests, button elements that have the `data-attach-loading` attribute will be disabled, and a CSS class `ajax-attach-loader` added. This class will spawn a loading spinner on button and anchor elements using the `:after` CSS selector.
 
 ```html
 <a href="#"
@@ -50,7 +50,7 @@ When submitting forms, users can accidentally click the button twice and cause a
 </a>
 ```
 
-When a button exists inside a form that contain the `oc-attach-loader` attribute will display the loading indicator.
+When a button exists inside a form that contain the `ajax-attach-loader` attribute will display the loading indicator.
 
 ```html
 <form data-request="onSubmit">
