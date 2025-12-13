@@ -23,6 +23,8 @@ jax.ajax('onDoSomething', {
 });
 ```
 
+The second argument of the `jax.ajax()` method is an [options object](#request-options).
+
 ### Method - `request` {#request}
 
 Identical to the `ajax()` method, except it submit an AJAX request with form data included. This serializes all the inputs inside the specified element.
@@ -30,6 +32,63 @@ Identical to the `ajax()` method, except it submit an AJAX request with form dat
 ```js
 jax.request('#myForm', 'onSubmitContactForm')
 ```
+
+The third argument of the `jax.request()` method is an [options object](#request-options).
+
+### Request Options {#request-options}
+
+The following options are available for the `jax.ajax()` and `jax.request()` methods.
+
+Option | Description
+------------- | -------------
+**update** | an object, specifies a list partials and page elements (as CSS selectors) to update: `{'partial': '#select'}`. The selector string should start with a `#` or `.` character, except you may also prepend it with `@` to append contents to the element, `^` to prepend, `!` to replace with and `=` to use any CSS selector.
+**confirm** | the confirmation string. If set, a confirmation dialog is displayed before the request is sent. If the user clicks the Cancel button, the request cancels.
+**data** | an optional object specifying data to be sent to the server along with the form data: `{var: 'value'}`.
+**query** | an optional object specifying data to be added to the current URL query string. When set to `true`, the form data is used.
+**headers** | an optional object specifying header values to be sent to the server with the request.
+**redirect** | string specifying an URL to redirect the browser to after the successful request.
+**url** | a string specifying the URL to send the request to. By default, the current page URL is used.
+**form** | a form element to use for sourcing the form data sent with the request, either passed as a selector string or a form element.
+**flash** | when true, instructs the server to clear and send any flash messages with the response. Default: `false`
+**files** | when true, the request will accept file uploads using the `FormData` interface. Default: `false`
+**download** | when true, file downloads are accepted with a `Content-Disposition` response. When a string, the downloaded filename can be specified. Default: `false`
+**bulk** | when true, the request be sent as JSON for bulk data transactions. Default: `false`
+**browserValidate** | when true, browser-based client side validation will be performed on the request before submitting. Only applies to requests triggered in the context of a `<form>` element.
+**browserTarget** | when set with `download`, opens the file in a new browser window with the specified target name.
+**browserRedirectBack** | when true and a redirect occurs, if the previous URL from the browser is available, use that in place of the redirect URL provided. Default: `false`.
+**message** | displays a progress message with the specified text, shown while the request is running.
+**loading** | an optional string or object to be displayed when a request runs. The string should be a CSS selector for an element or the object should support the `show()` and `hide()` functions to manage the visibility.
+**progressBar** | enable the progress bar when an AJAX request occurs.
+
+#### Callback Options
+
+The following callback options take functions with three arguments: the data object received from the server, the HTTP status code and the XHR object.
+
+```js
+success: function(data, responseCode, xhr) { }
+```
+
+Option | Description
+------------- | -------------
+**beforeUpdate** | a callback function to execute before page elements are updated. Return `false` to prevent the update. The `this` variable inside the function resolves to the request context.
+**afterUpdate** | a callback function identical to `beforeUpdate` except it executes after the page elements are updated.
+**success** | a callback function to execute in case of a successful request. If this option is supplied it overrides the default framework functionality: the elements are not updated and events are not triggered. To call the default framework functionality, use `this.success(...)` inside your function.
+**error** | a callback function execute in case of an error. By default the alert message is displayed. If this option is overridden the alert message won't be displayed. Return `false` to prevent the default error handling.
+**complete** | a callback function execute in case of a success or an error.
+**cancel** | a callback function execute in case the user aborts the request or cancels it via a confirmation dialog.
+
+#### Logic Handlers
+
+You may also override some of the request logic by passing new functions as options. These logic handlers are available.
+
+Handler | Description
+------------- | -------------
+**handleConfirmMessage(message)** | called when requesting confirmation from the user.
+**handleErrorMessage(message)** | called when an error message should be displayed.
+**handleValidationMessage(message, fields)** | focuses the first invalid field when validation is used.
+**handleFlashMessage(message, type)** | called when a flash message is provided using the **flash** option (see above).
+**handleRedirectResponse(url)** | called when the browser should redirect to another location.
+**handleProgressMessage(message, isDone)** | called when showing or hiding a progress message.
 
 ### Method - `flashMsg` {#flash-msg}
 
