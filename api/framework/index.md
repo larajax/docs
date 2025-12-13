@@ -25,6 +25,49 @@ jax.ajax('onDoSomething', {
 
 The second argument of the `jax.ajax()` method is an [options object](#request-options).
 
+#### Using Async / Await
+
+Both `jax.ajax()` and `jax.request()` return a Promise that can be used with `async`/`await` syntax. The resolved value is a [response object](#response-object) containing the data from the server.
+
+```js
+const data = await jax.ajax('onGetRecords');
+
+console.log(data.records); // Access returned data
+console.log(data.$status); // Access HTTP status code
+```
+
+You can also use traditional Promise methods like `then()` and `catch()`.
+
+```js
+jax.ajax('onGetRecords')
+    .then(data => {
+        console.log(data.records);
+    })
+    .catch(data => {
+        console.error(data.$env.getMessage());
+    });
+```
+
+For compatibility, jQuery-style promise methods are also available: `done()`, `fail()`, and `always()`.
+
+```js
+jax.ajax('onGetRecords')
+    .done(data => console.log('Success:', data))
+    .fail(data => console.log('Error:', data))
+    .always(data => console.log('Complete'));
+```
+
+#### Cancelling Requests
+
+The returned promise has a `cancel()` method that can be used to abort the request.
+
+```js
+const request = jax.ajax('onLongRunningTask');
+
+// Cancel the request after 5 seconds
+setTimeout(() => request.cancel(), 5000);
+```
+
 ### Method - `request` {#request}
 
 Identical to the `ajax()` method, except it submit an AJAX request with form data included. This serializes all the inputs inside the specified element.
@@ -34,6 +77,47 @@ jax.request('#myForm', 'onSubmitContactForm')
 ```
 
 The third argument of the `jax.request()` method is an [options object](#request-options).
+
+### Response Object {#response-object}
+
+The response object returned by `jax.ajax()` and `jax.request()` contains the data returned from the server, with additional non-enumerable properties for accessing metadata.
+
+```js
+const data = await jax.ajax('onGetUser');
+
+// Data properties are directly accessible
+console.log(data.name);
+console.log(data.email);
+
+// Metadata is available via $ prefixed properties
+console.log(data.$status);
+console.log(data.$xhr);
+console.log(data.$env.getMessage());
+```
+
+The following metadata properties are available on the response object.
+
+Property | Description
+------------- | -------------
+**$status** | the HTTP status code of the response (e.g., `200`, `500`).
+**$xhr** | the underlying `XMLHttpRequest` object.
+**$env** | the response envelope object containing parsed response metadata.
+
+#### Response Envelope
+
+The `$env` property provides access to the response envelope with the following methods.
+
+Method | Description
+------------- | -------------
+**getMessage()** | returns the message string from the response, if any.
+**getData()** | returns the data object from the response.
+**getStatus()** | returns the HTTP status code.
+**getSeverity()** | returns the severity level (`info`, `error`, `fatal`).
+**getInvalid()** | returns an object of invalid field names and their error messages.
+**getRedirectUrl()** | returns the redirect URL if the server requested a redirect.
+**getFlash()** | returns an array of flash messages with `level` and `text` properties.
+**isError()** | returns `true` if the response indicates an error.
+**isFatal()** | returns `true` if the response indicates a fatal error (status 500-599).
 
 ### Request Options {#request-options}
 
@@ -62,10 +146,13 @@ Option | Description
 
 #### Callback Options
 
-The following callback options take functions with three arguments: the data object received from the server, the HTTP status code and the XHR object.
+The following callback options take a function with the [response object](#response-object) as the first argument. The HTTP status code and XHR object can be accessed via `data.$status` and `data.$xhr` respectively.
 
 ```js
-success: function(data, responseCode, xhr) { }
+success: function(data) {
+    console.log(data.$status); // HTTP status code
+    console.log(data.$xhr);    // XMLHttpRequest object
+}
 ```
 
 Option | Description
