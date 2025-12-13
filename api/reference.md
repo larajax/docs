@@ -10,6 +10,7 @@ Attribute | Description
 [data-request-data](./attributes/request-data.md) | supplies postback data with the request
 [data-request-query](./attributes/request-query.md) | supplies query data with the request and modifies the URL
 [data-request-trigger](./attributes/request-trigger.md) | the event that triggers the request
+[data-request-poll](./attributes/request-poll.md) | automatically triggers the request at a regular interval
 [data-request-update](./attributes/request-update.md) | request specified partial view updates
 
 ### Additional Attribute Reference
