@@ -6,7 +6,7 @@ Use the `data-request-data` attribute to send data along with a request.
 
 ```html
 <button
-    data-handler="onSortRecords"
+    data-request="onSortRecords"
     data-request-data="{ column: 'created_at', sort: 'desc'  }">
     Sort Descending
 </button>

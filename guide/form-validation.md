@@ -22,10 +22,12 @@ For basic validation, including the [`data-request-flash` attribute](../api/attr
 Inside your AJAX handler, you may throw a validation exception to make a field invalid. The supplied array (first argument) should use field names for the keys and the error messages for the values.
 
 ```php
+use Illuminate\Validation\ValidationException;
+
 function onSubmit()
 {
     if (!post('name')) {
-        throw new ValidationException::withMessages([
+        throw ValidationException::withMessages([
             'name' => 'You must give a name!'
         ]);
     }
@@ -74,7 +76,7 @@ A dedicated AJAX handler can be used to validate the field. If no exception is t
 function onCheckUsername()
 {
     if (true) {
-        throw new ValidationException(['username' => 'Username is taken!']);
+        throw ValidationException::withMessages(['username' => 'Username is taken!']);
     }
 }
 ```
@@ -242,7 +244,7 @@ function onCheckUsername()
     $isTaken = in_array($username, ['admin', 'jeff']);
 
     if ($isTaken) {
-        throw new ValidationException(['username' => 'Username is taken!']);
+        throw ValidationException::withMessages(['username' => 'Username is taken!']);
     }
 }
 ```

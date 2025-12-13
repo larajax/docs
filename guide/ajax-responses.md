@@ -1,5 +1,100 @@
 # AJAX Responses
 
+The `AjaxResponse` class provides a fluent interface for building structured AJAX responses in Larajax. All methods can be chained together to build complex responses. Get an instance by calling the `ajax()` helper function.
+
+```php
+function onHandleRequest()
+{
+    return ajax()
+        ->data(['message' => 'Success'])
+        ->update(['#status' => 'Request processed']);
+}
+```
+
+## Updating the DOM
+
+One of the most common AJAX operations is updating parts of the page. The `update()` method allows you to patch the DOM by targeting specific elements and replacing their content.
+
+### Basic Updates
+
+Update a single element by its ID or CSS selector:
+
+```php
+function onUpdateContent()
+{
+    return ajax()->update([
+        '#myElement' => '<div>New content</div>'
+    ]);
+}
+```
+
+### Multiple Updates
+
+You can update multiple elements in a single response:
+
+```php
+function onRefreshDashboard()
+{
+    return ajax()->update([
+        '#user-count' => '<span>1,234 users</span>',
+        '#project-count' => '<span>56 projects</span>',
+        '.status-indicator' => '<span class="online">Online</span>'
+    ]);
+}
+```
+
+### Swap Modes
+
+Control how content is inserted using the `swap` option. The default swap mode is `innerHTML`.
+
+```php
+function onAddItem()
+{
+    return ajax()->update([
+        '#list' => [
+            'content' => '<li>New item</li>',
+            'swap' => 'append'  // Add to the end
+        ]
+    ]);
+}
+```
+
+Available swap modes:
+
+- **innerHTML**: Sets the content of the target element (default)
+- **outerHTML**: Replaces the target element entirely
+- **append** or **beforeend**: Inserts content at the end of the target element
+- **prepend** or **afterbegin**: Inserts content at the beginning of the target element
+- **afterend**: Inserts content immediately after the target element
+- **beforebegin**: Inserts content before the target element
+- **replace**: Completely replaces the target element with the content
+
+## Form Validation
+
+The `invalidFields()` method is commonly used to return validation errors to the client. This automatically sets the response status to 422 (Unprocessable Entity) and marks the response as an error.
+
+### Single Field Error
+
+```php
+function onSubmitForm()
+{
+    return ajax()->invalidField('email', 'Invalid email address');
+}
+```
+
+### Multiple Field Errors
+
+```php
+function onValidateForm()
+{
+    return ajax()->invalidFields([
+        'username' => 'Username is required', 'Must be at least 3 characters',
+        'email' => 'Invalid email format',
+        'password' => 'Password must contain a number'
+    ]);
+}
+```
+
 ## Redirects in AJAX Handlers
 
 If you need to redirect the browser to another location, return the `Redirect` response object from the AJAX handler. The framework will redirect the browser as soon as the response is returned from the server. Example AJAX handler with a redirect.
@@ -8,6 +103,17 @@ If you need to redirect the browser to another location, return the `Redirect` r
 function onRedirectMe()
 {
     return ajax()->redirect('http://google.com');
+}
+```
+
+Trigger a full page reload from the server:
+
+```php
+function onResetApplication()
+{
+    // Clear cache...
+
+    return ajax()->reload();
 }
 ```
 
@@ -47,13 +153,21 @@ jax.request(this.form, 'onHandleForm', {
 
 ## Returning Errors
 
-Use the [`error()` method](../api/response/index.md#error) to respond with an error
+### Regular Errors
+
+Use the `error()` method to respond with an error. This sets the HTTP status to 400 and triggers the standard AJAX error lifecycle events.
 
 ```php
 return ajax()->error("Not enough questions");
 ```
 
-To treat the response as an error while retaining the ability to send response contents as normal. Simply chain on the [`data()` method](../api/response/index.md#data).
+You can customize the HTTP status code:
+
+```php
+return ajax()->error("Forbidden action", 403);
+```
+
+To treat the response as an error while retaining the ability to send response contents as normal, simply chain on the `data()` method.
 
 ```php
 return ajax()
@@ -61,7 +175,7 @@ return ajax()
     ->data(['questionsNeeded' => 2]);
 ```
 
-These errors are handled by the AJAX framework.
+These errors are handled by the AJAX framework and trigger error event handlers.
 
 ```html
 <form
@@ -79,9 +193,95 @@ jax.request(this.form, 'onHandleForm', {
 })
 ```
 
+### Fatal Errors
+
+Use the `fatal()` method for critical errors that should not trigger the usual lifecycle events. This sets the HTTP status to 500 by default and bypasses standard error handling.
+
+```php
+function onCriticalOperation()
+{
+    if (!criticalServiceAvailable()) {
+        return ajax()->fatal("System unavailable");
+    }
+
+    // Process request...
+}
+```
+
+You can customize the HTTP status code:
+
+```php
+return ajax()->fatal("Database connection failed", 503);
+```
+
+Fatal errors are useful when:
+- A critical system component is unavailable
+- The application is in an invalid state
+- You want to bypass normal error handling and event lifecycle
+- The error is severe enough that normal processing should not continue
+
+## Flash Messages
+
+Display temporary messages to users using the `flash()` method:
+
+```php
+function onSaveSettings()
+{
+    // Save settings...
+
+    return ajax()->flash('success', 'Settings saved successfully!');
+}
+```
+
+Common flash levels include: `success`, `error`, `warning`, `info`.
+
+You can combine flash messages with other operations:
+
+```php
+function onDeleteItem()
+{
+    // Delete item...
+
+    return ajax()
+        ->flash('success', 'Item deleted')
+        ->update(['#items-list' => view('partials.items-list')]);
+}
+```
+
+## Loading Assets Dynamically
+
+Load JavaScript, CSS, or images dynamically after an AJAX response:
+
+```php
+function onLoadComponent()
+{
+    return ajax()
+        ->js('/js/charts.js')
+        ->css('/css/charts.css')
+        ->data(['component' => 'loaded']);
+}
+```
+
+Load multiple assets at once:
+
+```php
+function onLoadModule()
+{
+    return ajax()
+        ->js(['/js/module.js', '/js/module-helper.js'])
+        ->css(['/css/module.css']);
+}
+```
+
+For other asset types, use the generic `asset()` method:
+
+```php
+return ajax()->asset('img', ['/images/icon1.png', '/images/icon2.png']);
+```
+
 ## Dispatching Browser Events
 
-You may dispatch JavaScript events from AJAX handlers using the `dispatchBrowserEvent` method. This method takes any event name (first argument) and detail variables to pass to the event (second argument), the variables must be compatible with JSON serialization.
+Dispatch JavaScript events from AJAX handlers using the `browserEvent()` method. This method takes an event name (first argument) and detail variables to pass to the event (second argument). Variables must be compatible with JSON serialization.
 
 ```php
 function onPerformAction()
@@ -90,7 +290,7 @@ function onPerformAction()
 }
 ```
 
-In the browser, use the `addEventListener` to listen for the dispatched event when the AJAX request completes. The event variables are available via the `event.detail` object.
+In the browser, use `addEventListener` to listen for the dispatched event when the AJAX request completes. The event variables are available via the `event.detail` object.
 
 ```js
 addEventListener('app:update-profile', function (event) {
@@ -98,7 +298,21 @@ addEventListener('app:update-profile', function (event) {
 });
 ```
 
-For example, if you want to show an alert that a document has already been updated by another user, you could dispatch an event to the browser and throw an `AjaxException` to halt the process.
+### Async Browser Events
+
+For events that should not block the AJAX response processing:
+
+```php
+function onTrackActivity()
+{
+    return ajax()->browserEventAsync('analytics:track', [
+        'action' => 'button-click',
+        'timestamp' => now()
+    ]);
+}
+```
+
+### Preventing Default Behavior
 
 You can listen to this event in the browser using a generic listener. This example prompts the user before resubmitting the request with a `force` flag set in the data.
 
@@ -119,3 +333,58 @@ addEventListener('app:stale-document', function (event) {
     event.preventDefault();
 });
 ```
+
+## Response Headers
+
+Add custom headers to the AJAX response:
+
+```php
+function onDownloadData()
+{
+    return ajax()
+        ->headers([
+            'X-Custom-Header' => 'value',
+            'X-Rate-Limit' => '100'
+        ])
+        ->data(['exported' => true]);
+}
+```
+
+## Advanced Methods
+
+### Force Custom Response
+
+Bypass the standard AJAX response structure entirely:
+
+```php
+function onDownloadFile()
+{
+    return ajax()->force(
+        response()->download('/path/to/file.pdf')
+    );
+}
+```
+
+This is useful for file downloads, streaming responses, or any custom response type.
+
+### Exception Handling
+
+The `exception()` method intelligently handles different exception types:
+
+```php
+function onHandleRequest()
+{
+    try {
+        // Your code...
+    }
+    catch (\Exception $e) {
+        return ajax()->exception($e);
+    }
+}
+```
+
+Supported exception types:
+- **ValidationException**: Automatically converted to `invalidFields()`
+- **AjaxExceptionInterface**: Custom AJAX exceptions with `toAjaxData()` method
+- **AccessDeniedHttpException**: Returns "Access Denied" error
+- **Generic exceptions**: Returns the exception message as an error
