@@ -19,6 +19,7 @@ All other attributes are specified below.
 
 Attribute | Description
 --------- | ------------
+[data-request-url](./attributes/request-url.md) | specifies a custom URL endpoint for the AJAX request.
 [data-request-confirm](./attributes/request-confirm.md) | displays a confirmation message before sending the request.
 [data-request-before-send](./attributes/request-before-send.md) | execute JavaScript before the request is sent.
 [data-request-before-update](./attributes/request-before-update.md) | execute JavaScript before the page contents are updated.
