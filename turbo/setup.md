@@ -33,7 +33,7 @@ if (jax.useTurbo && jax.useTurbo()) {
 
 ## Disable Routing
 
-To disable PJAX routing on a specific page, you may trigger a full reload by including the `turbo-visit-control` meta tag in the head section of the page with the `reload` value. This will disable the feature for incoming requests only.
+The turbo router is disabled by default and must be explicitly enabled using the `turbo-visit-control` meta tag with the `enable` value (see above). To disable PJAX routing on a specific page where it was previously enabled, you may trigger a full reload by including the `turbo-visit-control` meta tag in the head section of the page with the `reload` value. This will disable the feature for incoming requests only.
 
 ```html
 <head>
@@ -41,15 +41,9 @@ To disable PJAX routing on a specific page, you may trigger a full reload by inc
 </head>
 ```
 
-To completely disable PJAX in your website, set the value to `disable`. This will disable the feature for all incoming and outgoing requests.
-
-```html
-<meta name="turbo-visit-control" content="disable" />
-```
-
 ## Disable for Specific Links
 
-By default, all internal HTML links will be routed using PJAX, but you can disable this by marking links or their parent container with `data-turbo="false"`. Links that are disabled are handled normally by the browser.
+When the turbo router is enabled, all internal HTML links will be routed using PJAX, but you can disable this by marking links or their parent container with `data-turbo="false"`. Links that are disabled are handled normally by the browser.
 
 ```html
 <a href="/" data-turbo="false">Disabled</a>
@@ -145,15 +139,4 @@ You can disable the page cache for individual pages by using the `turbo-cache-co
 
 ## Working with Hot Reloading
 
-In some cases, the turbo router may interfere when you are developing your website with hot reloading or browser sync technology, such as with [Laravel Mix](https://laravel-mix.com/) in development mode using `laravel-mix & browsersync`. To overcome this add the following code to your webpack `browserSync` configuration.
-
-```js
-snippetOptions: {
-    rule: {
-        match: /<\/head>/i,
-        fn: function (snippet, match) {
-            return '<meta name="turbo-visit-control" content="disable" />';
-        }
-   }
-}
-```
+In some cases, the turbo router may interfere when you are developing your website with hot reloading or browser sync technology, such as with [Laravel Mix](https://laravel-mix.com/) in development mode using `laravel-mix & browsersync`. Since the turbo router is disabled by default, simply omit the `turbo-visit-control` meta tag in your development environment to ensure compatibility with hot reloading.
