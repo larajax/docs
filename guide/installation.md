@@ -19,13 +19,13 @@ Choose one of the following methods to include the JavaScript framework.
 Add the script tag to your HTML. This is the fastest way to get started with no build step required.
 
 ```html
-<script src="https://unpkg.com/larajax@1/dist/framework-bundle.min.js" defer></script>
+<script src="https://unpkg.com/larajax@2/dist/framework-bundle.min.js" defer></script>
 ```
 
 Or use jsDelivr:
 
 ```html
-<script src="https://cdn.jsdelivr.net/npm/larajax@1/dist/framework-bundle.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/larajax@2/dist/framework-bundle.min.js" defer></script>
 ```
 
 ### NPM (Recommended for Production)
