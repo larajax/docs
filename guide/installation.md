@@ -44,20 +44,28 @@ pnpm add larajax
 ```
 :::
 
-Then import in your JavaScript entry file:
+Then import and initialize in your JavaScript entry file:
 
 ```js
-import 'larajax';
+import { jax } from 'larajax';
+window.jax = jax;
+jax.start();
 ```
 
-This automatically registers the `jax` global and starts the framework.
+For modular usage (tree-shakeable), import only what you need:
+
+```js
+import { AjaxRequest, ControlBase } from 'larajax';
+```
 
 ### Laravel with Vite
 
 If you're using Laravel with Vite, install via npm and import in your `resources/js/app.js`:
 
 ```js
-import 'larajax';
+import { jax } from 'larajax';
+window.jax = jax;
+jax.start();
 ```
 
 Then include it in your Blade layout:
