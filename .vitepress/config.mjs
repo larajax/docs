@@ -23,8 +23,8 @@ const sharedSidebar = [
             { text: 'Defining Components', link: '/guide/defining-components' },
             { text: 'Form Validation', link: '/guide/form-validation' },
             { text: 'Loading Indicators', link: '/guide/loading-indicators' },
-            { text: 'Downloads & Uploads', link: '/guide/download-upload' },
-            { text: 'Flash Messages', link: '/guide/flash-messages' }
+            { text: 'Downloads & Uploads', link: '/guide/download-upload' }
+            // { text: 'Flash Messages', link: '/guide/flash-messages' }
         ]
     },
     {
