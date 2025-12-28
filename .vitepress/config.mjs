@@ -70,7 +70,8 @@ export default {
             '/turbo/': sharedSidebar
         },
         socialLinks: [
-            { icon: 'github', link: 'https://github.com/larajax/larajax' }
+            { icon: 'github', link: 'https://github.com/larajax/larajax' },
+            { icon: 'discord', link: 'https://discord.gg/gEKgwSZ' }
         ],
         search: { provider: 'local' },
         outline: [2, 3] // h2 and h3
