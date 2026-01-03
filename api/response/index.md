@@ -55,7 +55,7 @@ return ajax()->error("Well that didn't work!");
 Trigger an error that aborts the request.
 
 ```php
-return ajax()->error("Something broke!");
+return ajax()->fatal("Something broke!");
 ```
 
 ### Method - `js()` {#js}

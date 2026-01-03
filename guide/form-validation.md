@@ -26,7 +26,7 @@ use Illuminate\Validation\ValidationException;
 
 function onSubmit()
 {
-    if (!post('name')) {
+    if (!request('name')) {
         throw ValidationException::withMessages([
             'name' => 'You must give a name!'
         ]);
@@ -59,13 +59,13 @@ For a more comprehensive validation experience, inline validation can be enabled
 
 ### Validating a Single Field
 
-In some cases you may want to validate a single field when the value changes. By including the `data-track-input` attribute alongside the `data-request` attribute, the AJAX framework will submit a request when a user types something in to the field.
+In some cases you may want to validate a single field when the value changes. By including the `data-request-trigger="input changed"` attribute alongside the `data-request` attribute, the AJAX framework will submit a request when a user types something in to the field.
 
 ```html
 <form data-request-validate>
     <div>
         <label>Username</label>
-        <input name="username" data-request="onCheckUsername" data-track-input />
+        <input name="username" data-request="onCheckUsername" data-request-trigger="input changed" />
     </div>
 </form>
 ```
@@ -200,7 +200,7 @@ The `data-request-flash` attribute is used to enable flash messages for successf
         <label>Username</label>
         <input name="username"
             data-request="onCheckUsername"
-            data-track-input
+            data-request-trigger="input changed"
             data-attach-loading />
         <span data-validate-for="username"></span>
     </div>
@@ -240,7 +240,7 @@ function onSubmitForm()
 
 function onCheckUsername()
 {
-    $username = strtolower(trim(post('username')));
+    $username = strtolower(trim(request('username')));
     $isTaken = in_array($username, ['admin', 'jeff']);
 
     if ($isTaken) {

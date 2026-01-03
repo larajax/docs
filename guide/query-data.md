@@ -6,7 +6,7 @@ Use the `data-request-query` attribute to persist the request data with the URL,
 
 ```html
 <button
-    data-handler="onSortRecords"
+    data-request="onSortRecords"
     data-request-query="{ column: 'created_at', sort: 'desc'  }">
     Sort Descending
 </button>

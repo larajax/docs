@@ -22,6 +22,14 @@ To open the file in a new browser window, typically used for previewing PDFs, se
 </button>
 ```
 
+When using the JavaScript API, use the `browserTarget` option:
+
+```js
+jax.ajax('onDownload', {
+    browserTarget: '_blank'
+});
+```
+
 ### Download Responses
 
 Inside your AJAX handler, you may use the typical Laravel response type to return a file download response type where the `download` method accepts the local disk file path. The filename is determined by the server response.

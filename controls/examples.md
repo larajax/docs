@@ -75,7 +75,7 @@ jax.registerControl('my-vue-control', class extends jax.ControlBase {
         this.vm = new Vue({
             el: this.element.querySelector('[data-vue-template]'),
             data: {
-                name: 'October CMS'
+                name: 'Larajax'
             },
             methods: {
                 greet: this.greet

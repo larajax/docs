@@ -281,6 +281,16 @@ Remove an event handler.
 jax.off(element, 'click');
 ```
 
+### Method - `one` {#one}
+
+Attach an event handler that fires only once. The handler is automatically removed after it executes.
+
+```js
+jax.one(element, 'click', () => {
+    console.log("This will only fire once!");
+});
+```
+
 ### Method - `values` {#values}
 
 Returns the input values that would resolve for a given element for a request.

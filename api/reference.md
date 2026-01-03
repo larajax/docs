@@ -30,6 +30,10 @@ Attribute | Description
 [data-request-redirect](./attributes/request-redirect.md) | specifies a URL to redirect the browser after the successful AJAX request.
 [data-request-message](./attributes/request-message.md) | displays a progress message with the specified text, shown while the request is running.
 [data-request-files](./attributes/request-files.md) | when specified the request will accept file uploads using the `FormData` interface.
+[data-request-flash](./attributes/request-flash.md) | instructs the server to send flash messages with the response.
+[data-request-validate](./attributes/request-validate.md) | enables inline form validation with error display.
+[data-request-loading](./attributes/request-loading.md) | shows/hides an element while the request is running.
+[data-attach-loading](./attributes/attach-loading.md) | disables the element and shows a loading indicator during requests.
 
 ## Available Events
 
@@ -62,9 +66,10 @@ Method | Description
 [jax.waitFor()](./framework/index.md#wait-for) | waits for a an object to exist
 [jax.dispatch()](./framework/index.md#dispatch) | triggers a global event
 [jax.trigger()](./framework/index.md#trigger) | triggers an event on an element
-[jax.on()](./framework/index.md#on) | triggers an event on an element
-[jax.off()](./framework/index.md#off) | triggers an event on an element
-[jax.values()](./framework/index.md#values) | extract the input values from a container element.
+[jax.on()](./framework/index.md#on) | attaches an event handler to an element
+[jax.off()](./framework/index.md#off) | removes an event handler from an element
+[jax.one()](./framework/index.md#one) | attaches a one-time event handler that removes itself after firing
+[jax.values()](./framework/index.md#values) | extracts the input values from a container element.
 
 ### Turbo Router Functions
 
