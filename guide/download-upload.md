@@ -4,23 +4,11 @@ Larajax provides simple features for managing files, uploading files through for
 
 ## Downloading Files
 
-To enable file downloads, include the `data-request-download` attribute on a HTML form or button tag. The following is a minimal example of downloading a file.
+File downloads are automatically detected when the server responds with a `Content-Disposition` header. The following is a minimal example of downloading a file.
 
 ```html
-<button
-    data-request="onDownload"
-    data-request-download>
+<button data-request="onDownload">
     Download
-</button>
-```
-
-If the `data-request-download="..."` attribute is set on the request trigger, the filename in this attribute will be given to the downloaded file. The following produces a file named **data.csv**.
-
-```html
-<button
-    data-request="onDownload"
-    data-request-download="data.csv">
-    Download Document
 </button>
 ```
 
@@ -29,7 +17,6 @@ To open the file in a new browser window, typically used for previewing PDFs, se
 ```html
 <button
     data-request="onDownload"
-    data-request-download
     data-browser-target="_blank">
     Open in New Window
 </button>
@@ -37,7 +24,7 @@ To open the file in a new browser window, typically used for previewing PDFs, se
 
 ### Download Responses
 
-Inside your AJAX handler, you may use the typical Laravel response type to return a file download response type where the `download` method accepts the local disk file path.
+Inside your AJAX handler, you may use the typical Laravel response type to return a file download response type where the `download` method accepts the local disk file path. The filename is determined by the server response.
 
 ```php
 public function onDownload()

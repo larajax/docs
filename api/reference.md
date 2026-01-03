@@ -29,7 +29,6 @@ Attribute | Description
 [data-request-cancel](./attributes/request-cancel.md) | execute JavaScript if the user aborts the request or cancels it via a confirmation dialog.
 [data-request-redirect](./attributes/request-redirect.md) | specifies a URL to redirect the browser after the successful AJAX request.
 [data-request-message](./attributes/request-message.md) | displays a progress message with the specified text, shown while the request is running.
-[data-request-download](./attributes/request-download.md) | when specified file downloads are accepted with a `Content-Disposition` response.
 [data-request-files](./attributes/request-files.md) | when specified the request will accept file uploads using the `FormData` interface.
 
 ## Available Events
