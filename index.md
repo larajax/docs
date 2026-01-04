@@ -1,6 +1,6 @@
 # What is Larajax?
 
-Larajax aims to bring simplicity back to Laravel development.
+Larajax is a small AJAX framework for Laravel, built with a single goal: to bring simplicity back to Laravel development. Modern stacks often turn basic interactions into layers of APIs, JavaScript state, and wiring. Larajax pulls that logic back into the controller and treats rendered HTML as the source of truth.
 
 It lets your HTML call **Laravel controller methods** directly using `data-request`. No public API routes. No duplicated endpoints. Each page keeps its own actions.
 
