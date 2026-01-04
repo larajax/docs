@@ -63,10 +63,10 @@ Available swap modes:
 
 - **innerHTML**: Sets the content of the target element (default)
 - **outerHTML**: Replaces the target element entirely
-- **append** or **beforeend**: Inserts content at the end of the target element
-- **prepend** or **afterbegin**: Inserts content at the beginning of the target element
-- **afterend**: Inserts content immediately after the target element
-- **beforebegin**: Inserts content before the target element
+- **append**: Inserts content at the end of the target element
+- **prepend**: Inserts content at the beginning of the target element
+- **after**: Inserts content immediately after the target element
+- **before**: Inserts content before the target element
 - **replace**: Completely replaces the target element with the content
 
 ## Form Validation
