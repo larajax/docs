@@ -1,6 +1,8 @@
 # What is Larajax?
 
-Larajax lets your HTML call **Laravel controller methods** directly using `data-request`. No public API routes. No duplicated endpoints. Each page keeps its own actions.
+Larajax aims to bring simplicity back to Laravel development.
+
+It lets your HTML call **Laravel controller methods** directly using `data-request`. No public API routes. No duplicated endpoints. Each page keeps its own actions.
 
 You define small, focused controller handlers and trigger them straight from the view. They behave like API calls but stay scoped to the page that uses them.
 
