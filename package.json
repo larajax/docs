@@ -1,5 +1,8 @@
 {
     "name": "@larajax/docs",
+    "description": "Official documentation for Larajax",
+    "license": "MIT",
+    "author": "Responsiv Pty. Ltd. (trading as October CMS)",
     "private": true,
     "scripts": {
         "dev": "vitepress dev . --port 5173",
