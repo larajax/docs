@@ -32,6 +32,7 @@ const sharedSidebar = [
         items: [
             { text: 'Defining Hot Controls', link: '/controls/definition' },
             { text: 'Writing Listeners', link: '/controls/listeners' },
+            { text: 'ESM Registration', link: '/controls/esm-controls' },
             { text: 'Example Usage', link: '/controls/examples' },
         ]
     },
