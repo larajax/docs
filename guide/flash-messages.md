@@ -1,51 +1,27 @@
 # Flash Messages
 
-Flash Messages are a handy way to let the user know the outcome of a request, either as a sucess or failure. Simply use the `Flash` facade to display a message after the request finishes. Flash messages are usually set inside AJAX handlers.
+Flash messages are a handy way to let the user know the outcome of a request, either as a success or failure. Use the `ajax()->flash()` method to display a message after the request finishes. Flash messages are usually set inside AJAX handlers.
 
 ```php
 function onSave()
 {
     // Sets a successful message
-    Flash::success('Settings successfully saved!');
+    return ajax()->flash('success', 'Settings successfully saved!');
+}
+```
 
-    // Sets an error message
-    Flash::error('Something went wrong...');
+The first argument is the message type: `success`, `error`, `warning`, or `info`.
 
-    // Sets a warning message
-    Flash::warning('Please confirm your email address soon');
-
-    // Sets an informative message
-    Flash::info('The export is still processing. Please try again in a minute.');
+```php
+function onSave()
+{
+    return ajax()
+        ->flash('success', 'Settings saved!')
+        ->flash('info', 'Remember to publish your changes.');
 }
 ```
 
 Flash messages will disappear after an interval of 3 seconds. Clicking on a flash message will stop it from disappearing.
-
-## Built-in Flash Messages
-
-The AJAX framework has built-in support for flash messages, simply specify the `data-request-flash` attribute on a form to enable the use of flash messages on completed AJAX requests.
-
-```html
-<form
-    data-request="onSuccess"
-    data-request-flash>
-    <!-- Form Contents -->
-</form>
-```
-
-To only display a specific flash message type, you may pass the value to the attribute &mdash; **success**, **error**, **info**, **warning** or **validate**. Multiple values are separated by commas.
-
-```html
-<form data-request-flash="success,warning"></form>
-```
-
-When using [validation features](../guide/form-validation.md) in combination with the `data-request-flash` attribute, the validation errors take priority and suppress the flash message. To display both at the same time, include the **validate** type with the attribute.
-
-```html
-<form
-    data-request-validate
-    data-request-flash="success,error,validate">
-```
 
 ### Loading Flash Message
 
@@ -92,3 +68,46 @@ jax.flashMsg({
     interval: 1
 });
 ```
+
+## Customizing Alerts
+
+When an AJAX request returns an error message, the framework triggers the `ajax:error-message` event before showing the native `alert()`. You can intercept this to use your own notification library.
+
+```js
+addEventListener('ajax:error-message', function(event) {
+    event.preventDefault();
+
+    Swal.fire({
+        icon: 'error',
+        title: 'Error',
+        text: event.detail.message
+    });
+});
+```
+
+## Customizing Confirms
+
+When a request has a `confirm` option (via `data-request-confirm` or the JavaScript API), the framework triggers the `ajax:confirm-message` event. The event detail includes a `promise` object that you must resolve or reject to continue or cancel the request.
+
+```js
+addEventListener('ajax:confirm-message', function(event) {
+    event.preventDefault();
+
+    const { message, promise } = event.detail;
+
+    Swal.fire({
+        title: 'Confirm',
+        text: message,
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonText: 'Yes',
+        cancelButtonText: 'Cancel'
+    }).then((result) => {
+        result.isConfirmed ? promise.resolve() : promise.reject();
+    });
+});
+```
+
+::: tip
+For customizing loading indicators, see [Loading Indicators](./loading-indicators.md#working-with-javascript).
+:::

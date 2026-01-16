@@ -140,28 +140,69 @@ form[data-ajax-progress=onPay] .is-payment-loading {
 
 ## Working with JavaScript
 
-For more complex scenarios, you can hook in to the [JavaScript Events](../api/events/index.md) using the `ajax:promise` and `ajax:always` events. These events can be attached to the document, form or target elements.
+For more complex scenarios, you can hook in to the [JavaScript Events](../api/events/index.md) to build custom loading indicators.
+
+### Global Loader
+
+For a page-level loader (like a spinner in the header or full-page overlay), use the `ajax:request-start` and `ajax:request-end` events. These fire on every HTTP request.
 
 ```js
-formElement.addEventListener('ajax:promise', function() {
-    // A new request has started
+addEventListener('ajax:request-start', function() {
+    document.querySelector('#global-loader').classList.add('visible');
 });
 
-formElement.addEventListener('ajax:always', function() {
-    // A request has ended
+addEventListener('ajax:request-end', function() {
+    document.querySelector('#global-loader').classList.remove('visible');
 });
 ```
+
+### Element-Specific Loader
+
+For loaders relative to the triggering element (like a spinner inside a button), use `ajax:before-request`, `ajax:request-complete`, and `ajax:request-cancel`. The cancel event fires when a confirmation dialog is declined, ensuring the loader is hidden even if the request never runs.
+
+```js
+document.addEventListener('ajax:before-request', function(event) {
+    if (event.detail?.context?.options?.loader === false) return;
+
+    const button = event.target.closest('button');
+    if (button) {
+        button.classList.add('loading');
+    }
+});
+
+function hideLoader(event) {
+    const button = event.target.closest('button');
+    if (button) {
+        button.classList.remove('loading');
+    }
+}
+
+document.addEventListener('ajax:request-complete', hideLoader);
+document.addEventListener('ajax:request-cancel', hideLoader);
+```
+
+To disable the loader for a specific request, set the `loader` option to `false`:
+
+```js
+jax.ajax('onDoSomething', { loader: false });
+```
+
+```html
+<button data-request="onDoSomething" data-request-loader="false">Submit</button>
+```
+
+### Disabling Form Inputs
 
 The following example will disable all inputs inside a form while the request is running.
 
 ```js
-addEventListener('ajax:promise', function(event) {
+addEventListener('ajax:before-request', function(event) {
     event.target.closest('form').querySelectorAll('input').forEach(function(el) {
         el.disabled = true;
     });
 });
 
-addEventListener('ajax:always', function() {
+addEventListener('ajax:request-complete', function(event) {
     event.target.closest('form').querySelectorAll('input').forEach(function(el) {
         el.disabled = false;
     });
