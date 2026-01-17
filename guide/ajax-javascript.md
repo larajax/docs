@@ -43,3 +43,40 @@ The method takes the target element as its first argument and the AJAX handler n
 ```
 
 The third argument to `jax.request` is an options object, identical to the `jax.ajax` method.
+
+## Handling Errors with Async/Await
+
+When using `await`, any non-2xx HTTP response (400, 422, 500, etc.) will reject the promise and throw an exception. This includes validation errors (422) and explicit errors (400).
+
+```js
+try {
+    const data = await jax.ajax('onDoSomething');
+} catch (data) {
+    // Handle 400, 422, 500 errors
+    if (data.$env.message) {
+        alert(data.$env.message);
+    }
+}
+```
+
+However, in most cases the framework already handles error display automatically—showing validation messages on fields, displaying flash errors, etc. If you don't need custom error handling, you can silently catch errors:
+
+```js
+const data = await jax.ajax('onDoSomething').catch(() => null);
+```
+
+This pattern is useful when you need blocking behavior in an async function but want the framework to handle all error UI:
+
+```js
+async function handleSubmit() {
+    const data = await jax.ajax('onValidate').catch(() => null);
+    if (!data) return; // Stop if validation failed
+
+    // Continue with next step...
+    await jax.ajax('onSubmit').catch(() => null);
+}
+```
+
+::: tip
+If you don't need to wait for the response or handle errors manually, you can simply call `jax.ajax('onDoSomething')` without `await`. The framework handles all success and error states automatically.
+:::
