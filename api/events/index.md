@@ -2,9 +2,29 @@
 
 Hooking in to events provides a way to enhance the behavior of the AJAX functionality. The events are listed below.
 
+### Event - `ajax:before-request` {#ajax:before-request}
+
+Triggered on the triggering element before the request is sent. The event detail contains `context` with the request options. Useful for element-specific loading indicators.
+
 ### Event - `ajax:before-send` {#ajax-before-send}
 
-Triggered on the window object before sending the request. The handler details provide the `context` object.
+Triggered on the window object before sending the request. The event detail contains `context` with the request options.
+
+### Event - `ajax:request-start` {#ajax:request-start}
+
+Triggered on the window object when the HTTP request starts. The event detail contains:
+
+- `url` - The request URL
+- `xhr` - The XMLHttpRequest object
+
+Useful for global loading indicators.
+
+### Event - `ajax:request-end` {#ajax:request-end}
+
+Triggered on the window object when the HTTP request ends. The event detail contains:
+
+- `url` - The request URL
+- `xhr` - The XMLHttpRequest object
 
 ### Event - `ajax:before-update` {#ajax:before-update}
 
@@ -45,51 +65,56 @@ addEventListener('ajax:update-complete', function(event) {
 
 Triggered on the form object after the request is successfully completed. The handler gets 5 parameters: the event object, the context object, the data object received from the server, the status text string, and the XHR object.
 
+### Event - `ajax:request-complete` {#ajax:request-complete}
+
+Triggered on the triggering element after the request completes (success or error). The event detail contains:
+
+- `context` - The request context
+- `data` - The response data
+- `responseCode` - The HTTP status code
+- `xhr` - The XMLHttpRequest object
+
+### Event - `ajax:request-cancel` {#ajax:request-cancel}
+
+Triggered on the triggering element when a request is cancelled, such as when the user declines a confirmation dialog. The event detail contains:
+
+- `context` - The request context
+
+Use this event alongside `ajax:request-complete` to ensure loaders are hidden even when requests are cancelled before they start.
+
 ### Event - `ajax:request-error` {#ajax:request-error}
 
 Triggered on the form object if the request encounters an error.
 
 ### Event - `ajax:error-message` {#ajax:error-message}
 
-Triggered on the window object if the request encounters an error. The handler has a `message` detail with the error message returned from the server.
+Triggered on the window object when an error message should be displayed. The event detail contains:
+
+- `message` - The error message from the server
+
+Call `event.preventDefault()` to suppress the default `alert()` behavior.
 
 ### Event - `ajax:confirm-message` {#ajax:confirm-message}
 
-Triggered on the window object when `confirm` option is given. The handler has a `message` detail with a text message assigned to the handler as part of `confirm` option. A `promise` detail is also provided to defer or cancel the outcome, this is useful for implementing custom confirm logic/interface instead of native javascript confirm box.
+Triggered on the window object when confirmation is required (via `data-request-confirm` or the `confirm` option). The event detail contains:
 
-Using a supplied `promise` from the event detail.
+- `message` - The confirmation message
+- `promise` - An object with `resolve()` and `reject()` methods to continue or cancel the request
 
-```js
-addEventListener('ajax:confirm-message', function(event) {
-    const { message, promise } = event.detail;
-
-    // Prevent default behavior
-    event.preventDefault();
-
-    // Handle promise
-    if (confirm(message)) {
-        promise.resolve();
-    }
-    else {
-        promise.reject();
-    }
-});
-```
+Call `event.preventDefault()` to suppress the default `confirm()` dialog.
 
 ### Event - `ajax:setup` {#ajax:setup}
 
-Triggered before the request is formed. The handler details provide the `context` object, allowing options to be modified via the `context.options` property.
-
-Applies configurations to all AJAX requests globally.
+Triggered before the request is formed. The event detail provides the `context` object, allowing options to be modified via `context.options`. Use this to apply global configuration to all AJAX requests.
 
 ```js
 addEventListener('ajax:setup', function(event) {
     const { options } = event.detail.context;
 
-    // Enable AJAX handling of Flash messages on all AJAX requests
+    // Enable flash message handling on all requests
     options.flash = true;
 
-    // Disable the progress bar for all AJAX requests
+    // Disable the progress bar globally
     options.progressBar = false;
 
     // Handle Error Messages by triggering a flashMsg of type error
@@ -103,19 +128,3 @@ addEventListener('ajax:setup', function(event) {
     }
 });
 ```
-
-### Event - `ajax:promise` {#ajax:promise}
-
-Triggered directly before the AJAX request is sent. The handler details provide the `context` object.
-
-### Event - `ajax:done` {#ajax:done}
-
-Triggered finally if the AJAX request was successful.
-
-### Event - `ajax:fail` {#ajax:fail}
-
-Triggered finally if the AJAX request fails.
-
-### Event - `ajax:always` {#ajax:always}
-
-Triggered regardless if the AJAX request fails or was successful.
