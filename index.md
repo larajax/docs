@@ -4,7 +4,7 @@ Larajax is a small AJAX library for Laravel, built to simplify dynamic interacti
 
 It lets your HTML call **Laravel controller methods** directly using `data-request`. No public API routes. No duplicated endpoints. Each controller keeps its own actions.
 
-You define small, focused handlers and trigger them straight from the view. They behave like API calls but live alongside your page controllersâ€”no separate API layer needed.
+You define small, focused handlers and trigger them straight from the view. They behave like API calls but live alongside your page controllers, with no separate API layer needed.
 
 On the browser side, Larajax ships with a **lightweight JavaScript library**. Your markup fires the action. Larajax sends the request and applies the response. You can also call handlers programmatically with `jax.ajax()` when needed.
 
@@ -102,6 +102,8 @@ Once actions are local to a page instead of global, a natural question followsâ€
 
 ### Components Solve Reusability
 
+Components allow page-local reuse without introducing shared routes or shared controllers.
+
 Every controller supports a `$components` property to define reusable behavior. Any AJAX handlers found in those component classes are automatically registered on the controller that includes them.
 
 ```php
@@ -184,6 +186,8 @@ More details on working with JavaScript are available in the [JavaScript Guide](
 Larajax provides a global `ajax()` helper that returns a `Larajax\Classes\AjaxResponse` instance. This response object lets you compose multiple instructions into a single response, describing exactly how the browser should react.
 
 Instead of returning raw JSON and handling it manually on the client, you describe the outcome directly in the controller.
+
+A handler can return multiple browser instructions in a single response.
 
 ```php
 function onSave()
