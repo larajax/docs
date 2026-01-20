@@ -151,6 +151,12 @@ jax.request(this.form, 'onHandleForm', {
 });
 ```
 
+Or using async/await.
+
+```js
+const data = await jax.request(this.form, 'onHandleForm');
+```
+
 ## Returning Errors
 
 ### Regular Errors
@@ -191,6 +197,16 @@ jax.request(this.form, 'onHandleForm', {
         console.log(data);
     }
 })
+```
+
+Again with async/await.
+
+```js
+try {
+    const data = await jax.request(this.form, 'onHandleForm');
+} catch (error) {
+    console.log(error);
+}
 ```
 
 ### Fatal Errors
@@ -384,7 +400,10 @@ function onHandleRequest()
 ```
 
 Supported exception types:
-- **ValidationException**: Automatically converted to `invalidFields()`
-- **AjaxExceptionInterface**: Custom AJAX exceptions with `toAjaxData()` method
-- **AccessDeniedHttpException**: Returns "Access Denied" error
-- **Generic exceptions**: Returns the exception message as an error
+
+| Exception | Behavior |
+| --------- | -------- |
+| `\Illuminate\Validation\ValidationException` | Automatically converted to `invalidFields()` |
+| `\Larajax\Contracts\AjaxExceptionInterface` | Custom AJAX exceptions with `toAjaxData()` method |
+| `\Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException` | Returns "Access Denied" error |
+| `\Exception` | Returns the exception message as an error |
