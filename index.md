@@ -1,14 +1,14 @@
 # What is Larajax?
 
-Larajax is a small AJAX framework for Laravel, built with a single goal: to bring simplicity back to Laravel development. Modern stacks often turn basic interactions into layers of APIs, JavaScript state, and wiring. Larajax pulls that logic back into the controller and treats rendered HTML as the source of truth.
+Larajax is a small AJAX library for Laravel, built to simplify dynamic interactions. Modern stacks often turn basic operations into REST endpoints, frontend state management, and client-side routing. Larajax pulls that logic back into the controller and treats rendered HTML as the source of truth.
 
-It lets your HTML call **Laravel controller methods** directly using `data-request`. No public API routes. No duplicated endpoints. Each page keeps its own actions.
+It lets your HTML call **Laravel controller methods** directly using `data-request`. No public API routes. No duplicated endpoints. Each controller keeps its own actions.
 
-You define small, focused controller handlers and trigger them straight from the view. They behave like API calls but stay scoped to the page that uses them.
+You define small, focused handlers and trigger them straight from the view. They behave like API calls but live alongside your page controllers—no separate API layer needed.
 
-On the browser side, Larajax ships with a **light JavaScript framework**. Your markup fires the action. Larajax sends the request and applies the response. You can also call handlers directly with `jax.ajax()` when you need full control.
+On the browser side, Larajax ships with a **lightweight JavaScript library**. Your markup fires the action. Larajax sends the request and applies the response. You can also call handlers programmatically with `jax.ajax()` when needed.
 
-This pattern was refined for years in production by the team behind [October CMS](https://octobercms.com) and is now available as a standalone package for the [Laravel Framework](http://laravel.com/).
+This pattern was refined over years in production by the team behind [October CMS](https://octobercms.com) and is now available as a standalone package for [Laravel](http://laravel.com/).
 
 ## Your First Action
 
@@ -52,7 +52,7 @@ Most Laravel applications end up splitting behavior across two separate layers:
 - Page routes that render views
 - API routes that perform actions
 
-This separation seems clean at first, but over time those internal APIs begin to spread across the application. They are global by default, their ownership becomes unclear, and simple page-level behavior becomes harder to reason about.
+This separation seems clean at first, but over time those internal APIs spread across the application. They're globally accessible by default, ownership becomes unclear, and simple page-level behavior becomes harder to reason about.
 
 A basic profile page often grows into something like this:
 
@@ -64,9 +64,9 @@ Route::delete('/user-profile', ...);
 Route::post('/user-profile/check-email', ...);
 ```
 
-Each route is valid on its own, but together they expose page-specific behavior as part of the global routing surface. Actions that only exist to support one screen now live at the same level as true application-wide APIs.
+Each route is valid on its own, but together they expose page-specific behavior as part of the global routing surface. Page-specific actions end up sharing space with true application-wide APIs.
 
-Larajax changes this by reducing the page to a single entry route.
+Larajax changes this by consolidating each page to a single route.
 
 ```php
 Route::any('/user-profile', [UserProfileController::class, 'index']);
@@ -75,7 +75,7 @@ Route::any('/user-profile', [UserProfileController::class, 'index']);
 With this approach:
 - GET renders the page
 - POST handles actions
-- Page behavior stays anchored to a single controller
+- Page behavior stays contained in a single controller
 
 ```php
 class UserProfileController extends LarajaxController
@@ -98,12 +98,11 @@ Each handler follows a clear `onSomething` naming convention, which makes action
 - Page behavior stays local
 - Controllers fully own their actions
 
-Once actions are local to a page instead of global, a natural question follows:
-how do you reuse them across pages? Larajax solves this with **components**.
+Once actions are local to a page instead of global, a natural question follows—how do you reuse them across pages? Larajax solves this with **components**.
 
-#### Components Solve Reusability
+### Components Solve Reusability
 
-Every controller supports a `$components` property where reusable behavior can be defined. Any AJAX handlers found in those component classes are automatically registered on the controller that includes them.
+Every controller supports a `$components` property to define reusable behavior. Any AJAX handlers found in those component classes are automatically registered on the controller that includes them.
 
 ```php
 class UserProfileController extends LarajaxController
@@ -114,7 +113,7 @@ class UserProfileController extends LarajaxController
 }
 ```
 
-Components can also define components of their own, which allows reuse to scale without flattening everything into a global space. This keeps behavior modular and intentional while preserving the same containment model that Larajax uses for controllers.
+Components can also define components of their own, allowing reuse to scale without flattening everything into a global space. This keeps behavior modular and intentional while preserving the same containment model that Larajax uses for controllers.
 
 ::: tip
 To learn more about how to define a component, see the [Components Guide](./guide/defining-components.md).
@@ -122,9 +121,9 @@ To learn more about how to define a component, see the [Components Guide](./guid
 
 ## Calling Handlers
 
-Larajax includes a small client-side layer that lets you call your server-side handlers either from HTML or directly from JavaScript using the same naming pattern.
+Larajax includes a small client-side layer that lets you call server-side handlers from HTML or JavaScript using the same naming pattern.
 
-When a request is made, it is sent to the **current page URL** and the target handler is passed in the `X-AJAX-HANDLER` request header. This keeps all requests scoped to the active page route while avoiding the need for exposed API endpoints.
+When a request is made, it is sent to the **current page URL** and the target handler is passed in the `X-AJAX-HANDLER` request header. This keeps all requests scoped to the active page route.
 
 ### From Markup
 
@@ -162,9 +161,9 @@ When markup alone is not enough, the same handlers can be called directly from J
 </button>
 ```
 
-When you want to serialize the input values of a container or form explicitly, you can use `jax.request()` instead.
+To explicitly serialize form or container inputs, use `jax.request()` instead.
 
-```js
+```html
 <form>
     <input type="email" name="email" value="" />
 
@@ -174,7 +173,7 @@ When you want to serialize the input values of a container or form explicitly, y
 </form>
 ```
 
-This gives you the same request model as data-request, but with full control over when and how the call is made.
+This gives you the same request model as `data-request`, but with full control over when and how the call is made.
 
 ::: tip
 More details on working with JavaScript are available in the [JavaScript Guide](./guide/ajax-javascript.md).
@@ -182,9 +181,9 @@ More details on working with JavaScript are available in the [JavaScript Guide](
 
 ### From the Controller
 
-Larajax provides a global `ajax()` helper that returns an instance of the `Larajax\Classes\AjaxResponse` class. This response object lets you compose multiple instructions into a single server response and describe exactly how the browser should react.
+Larajax provides a global `ajax()` helper that returns a `Larajax\Classes\AjaxResponse` instance. This response object lets you compose multiple instructions into a single response, describing exactly how the browser should react.
 
-Instead of returning raw JSON and handling everything manually on the client, you describe the outcome of the action directly in the controller.
+Instead of returning raw JSON and handling it manually on the client, you describe the outcome directly in the controller.
 
 ```php
 function onSave()

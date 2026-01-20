@@ -42,7 +42,7 @@ You may include `data-turbo-eval="false"` to only allow the script to be execute
 
 ```html
 <body>
-    <script data-turbo-eval="false" src="{{ ['@framework.bundle']|theme }}"></script>
+    <script data-turbo-eval="false" src="/js/app.js"></script>
 </body>
 ```
 ::: tip
@@ -61,10 +61,6 @@ To execute inline JavaScript code only once, regardless of first page load or PJ
 ```
 
 ## Making Controls Idempotent
-
-::: aside
-Larajax provides a complimentary library that is used to make building [idempotent controls](../controls/definition.md) easy.
-:::
 
 When a page visit occurs and JavaScript components are initialized, it is important that these function are idempotent. In simple terms, an idempotent function is safe to apply multiple times without changing the result beyond its initial application.
 
@@ -86,6 +82,10 @@ addEventListener('page:loaded', function() {
 ```
 
 As general advice, a simpler approach is to allow the function to run multiple times and apply idempotence techniques internally. For example, check to see if a menu divider already exists first before creating a new one.
+
+::: tip
+Larajax provides a complimentary library that is used to make building [idempotent controls](../controls/definition.md) easy.
+:::
 
 ## Disposing Controls
 
