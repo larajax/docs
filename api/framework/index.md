@@ -57,15 +57,15 @@ jax.ajax('onGetRecords')
     .always(data => console.log('Complete'));
 ```
 
-#### Cancelling Requests
+#### Aborting Requests
 
-The returned promise has a `cancel()` method that can be used to abort the request.
+The returned promise has an `abort()` method that can be used to abort the request.
 
 ```js
 const request = jax.ajax('onLongRunningTask');
 
-// Cancel the request after 5 seconds
-setTimeout(() => request.cancel(), 5000);
+// Abort the request after 5 seconds
+setTimeout(() => request.abort(), 5000);
 ```
 
 ### Method - `request` {#request}
