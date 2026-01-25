@@ -71,3 +71,53 @@ Route::any('/profile', [\App\Controllers\ProfileController::class, 'index']);
 ```
 
 The `onSave` AJAX handler will be available to all actions defined by the `ProfileController` class.
+
+## Multi-Page Controllers
+
+A single controller can serve multiple pages while sharing AJAX handlers between them. Define multiple routes pointing to the same controller:
+
+```php
+// routes/web.php
+Route::any('/users', [UserController::class, 'index']);
+Route::any('/users/create', [UserController::class, 'create']);
+Route::any('/users/{id}', [UserController::class, 'show']);
+```
+
+```php
+// UserController.php
+class UserController extends LarajaxController
+{
+    public function index()
+    {
+        return view('users.index');
+    }
+
+    public function create()
+    {
+        return view('users.create');
+    }
+
+    public function show($id)
+    {
+        return view('users.show', ['user' => User::findOrFail($id)]);
+    }
+
+    // Handlers shared across all three pages
+    public function onValidateEmail()
+    {
+        $exists = User::where('email', request('email'))->exists();
+        return ajax()->data(['available' => !$exists]);
+    }
+
+    public function onSaveUser()
+    {
+        // Save logic used by both create and show pages
+    }
+}
+```
+
+All AJAX handlers defined in the controller are available to every page action it serves. This keeps related functionality together while avoiding code duplication.
+
+::: tip
+For a deeper understanding of this pattern and how it compares to traditional resource controllers, see [Architecture & Philosophy](/guide/architecture).
+:::

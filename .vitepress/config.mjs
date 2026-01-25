@@ -4,7 +4,8 @@ const sharedSidebar = [
         items: [
             { text: 'Getting Started', link: '/' },
             { text: 'Installation', link: '/guide/installation' },
-            { text: 'Laravel Integration', link: '/guide/laravel-integration' }
+            { text: 'Laravel Integration', link: '/guide/laravel-integration' },
+            { text: 'Architecture & Philosophy', link: '/guide/architecture' }
         ]
     },
     {

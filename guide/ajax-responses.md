@@ -13,7 +13,16 @@ function onHandleRequest()
 
 ## Updating the DOM
 
-One of the most common AJAX operations is updating parts of the page. The `update()` method allows you to patch the DOM by targeting specific elements and replacing their content.
+One of the most common AJAX operations is updating parts of the page. Larajax provides two approaches for DOM updates:
+
+| Method | Strategy | Description |
+| ------ | -------- | ----------- |
+| `update()` | **Push** | Server decides what to update and pushes content to specific selectors |
+| `partial()` | **Pull** | Client requests specific partials, server renders and returns them |
+
+### Push Updates with `update()`
+
+The `update()` method allows you to patch the DOM by targeting specific elements and replacing their content. The server decides what gets updated.
 
 ### Basic Updates
 
@@ -407,3 +416,57 @@ Supported exception types:
 | `\Larajax\Contracts\AjaxExceptionInterface` | Custom AJAX exceptions with `toAjaxData()` method |
 | `\Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException` | Returns "Access Denied" error |
 | `\Exception` | Returns the exception message as an error |
+
+## Pull Updates with `partial()`
+
+While `update()` pushes content from the server, `partial()` allows the client to request specific partials. This is useful when the view knows what it needs to refresh.
+
+### Client-Requested Partials
+
+The client specifies which partials to request using the `data-request-update` attribute:
+
+```html
+<button
+    data-request="onRefreshProfile"
+    data-request-update="{ 'profile-card': '#profileContainer' }">
+    Refresh Profile
+</button>
+```
+
+The handler can then render the requested partials:
+
+```php
+function onRefreshProfile()
+{
+    return ajax()->partial('profile-card', view('partials.profile-card'));
+}
+```
+
+### Dynamic Partial Rendering
+
+For handlers that serve multiple partials, you can iterate over the requested partial list:
+
+```php
+function onRefreshContent()
+{
+    $response = ajax();
+
+    foreach (ajax()->request()->partialList as $partialName) {
+        $response->partial($partialName, view("partials.{$partialName}"));
+    }
+
+    return $response;
+}
+```
+
+::: warning Security Consideration
+When dynamically rendering partials based on client requests, always restrict which views can be requested. The example above prefixes with `partials.` to ensure only views in the `partials` directory can be loaded. Never allow unrestricted access to arbitrary view files, as malicious users could use browser developer tools to request sensitive views.
+:::
+
+### When to Use Each Approach
+
+| Use `update()` when... | Use `partial()` when... |
+| ---------------------- | ----------------------- |
+| Server logic determines what needs updating | The view knows what it needs to refresh |
+| Updating multiple unrelated elements | Building reusable refresh patterns |
+| The update targets are dynamic | Client controls the refresh scope |

@@ -4,7 +4,7 @@ AJAX event handlers are API endpoints for the AJAX framework to communicate with
 
 ## AJAX Handlers
 
-To create an AJAX handler, define it in your controller or component. Handler names should use the `onSomething` pattern, for example, `onSubmitContactForm`.
+To create an AJAX handler, define it in your controller or component. Handler names must use the `onSomething` pattern, for example, `onSubmitContactForm`.
 
 ```php
 function onSubmitContactForm()
@@ -12,6 +12,10 @@ function onSubmitContactForm()
     // ...
 }
 ```
+
+::: tip Why the `on` prefix?
+This naming convention serves as a security boundary. Only methods matching the `on[Something]` pattern are exposed as AJAX handlers. This prevents unintentional access to other public controller methods—a known vulnerability in some similar frameworks where any public method can be invoked from the client.
+:::
 
 ### Calling a Handler
 
