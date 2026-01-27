@@ -98,7 +98,7 @@ Each handler follows a clear `onSomething` naming convention, which makes action
 - Page behavior stays local
 - Controllers fully own their actions
 
-Once actions are local to a page instead of global, a natural question follows—how do you reuse them across pages? Larajax solves this with **components**.
+Once actions are local to a page instead of global, a natural question follows: how do you reuse them across pages? Larajax solves this with **components**.
 
 ### Components Solve Reusability
 

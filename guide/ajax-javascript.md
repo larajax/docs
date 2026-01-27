@@ -59,7 +59,7 @@ try {
 }
 ```
 
-However, in most cases the framework already handles error display automatically—showing validation messages on fields, displaying flash errors, etc. If you don't need custom error handling, you can silently catch errors:
+However, in most cases the framework already handles error display automatically, including validation messages on fields and flash errors. If you don't need custom error handling, you can silently catch errors:
 
 ```js
 const data = await jax.ajax('onDoSomething').catch(() => null);

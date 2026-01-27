@@ -4,7 +4,7 @@ Larajax takes an opinionated approach to structuring Laravel applications. This 
 
 ## The Page-Per-Controller Pattern
 
-Larajax embraces a pattern inspired by classic PHP development: **one page = one route**. This contrasts with the resource controller pattern popularized by Rails and adopted by Laravel.
+Larajax embraces a pattern inspired by classic PHP development: **one page = one route**. Unlike the resource controller pattern popularized by Rails and adopted by Laravel, Larajax keeps all page behavior in one place.
 
 ### Traditional Resource Controllers
 
@@ -27,8 +27,9 @@ Route::resource('users', UserController::class);
 This works well for simple CRUD, but as applications grow:
 
 - The route table becomes noisy with internal API endpoints
-- Page behavior gets distributed across multiple controllers
+- Page behavior gets scattered across multiple controllers, making it harder to trace
 - You end up with separate routes for page rendering and AJAX operations
+- The rigid CRUD structure can force you to repurpose actions or overengineer when introducing custom behaviors
 
 ### The Larajax Approach
 
@@ -54,7 +55,7 @@ class UserProfileController extends LarajaxController
 }
 ```
 
-When you run `php artisan route:list`, you see the true sitemap of your application—without the clutter of internal API endpoints.
+When you run `php artisan route:list`, you see the true sitemap of your application, without the clutter of internal API endpoints.
 
 ## Benefits of This Pattern
 
@@ -78,15 +79,15 @@ ANY /projects/{id}
 
 ### 2. Localized Page Logic
 
-All behavior for a page stays in one place. When debugging or extending a page, you know exactly where to look.
+All behavior for a page stays in one place. When debugging or extending a page, you know exactly where to look. No jumping between route files, API controllers, and page controllers to understand what a single page does.
 
 ### 3. No Exposed Internal APIs
 
-AJAX handlers aren't separate routes—they're methods on the controller, protected by the `on` prefix convention. There's no risk of accidentally exposing internal APIs globally.
+AJAX handlers aren't separate routes. They're methods on the controller, protected by the `on` prefix convention. There's no risk of accidentally exposing internal APIs globally.
 
 ## Multi-Page Controllers
 
-A single controller can serve multiple related pages while sharing handlers between them:
+Not every page needs its own controller. A single controller can serve multiple related pages while sharing handlers between them:
 
 ```php
 // routes/web.php
@@ -127,7 +128,7 @@ class UserController extends LarajaxController
 
 ## Sharing Logic Across Controllers
 
-For functionality needed across multiple controllers, use:
+When you need to share functionality across multiple controllers, you have several options.
 
 ### Traits
 
@@ -188,13 +189,13 @@ class UserController extends LarajaxController
 
 ## When to Use Resource Controllers
 
-Resource controllers aren't wrong—they're a different approach. Consider using traditional resource controllers for:
+Resource controllers can be complementary to Larajax. Consider using traditional resource controllers for:
 
 - **Pure API backends** without page rendering
 - **Webhooks** and external integrations
-- **Admin panels** using packages like Nova or Filament
+- **Admin panels** using dedicated admin packages
 
-Larajax and resource controllers can coexist in the same application. Use Larajax for your user-facing pages and traditional controllers for backend services.
+Larajax and resource controllers can coexist in the same application. Many applications use Larajax for user-facing pages alongside traditional controllers for backend services.
 
 ## Summary
 
@@ -206,4 +207,4 @@ Larajax and resource controllers can coexist in the same application. Use Laraja
 | Page behavior | Distributed | Localized |
 | Best for | APIs, admin panels | User-facing applications |
 
-The Larajax pattern prioritizes **code longevity** and **maintainability** by keeping related functionality together and making your application's structure immediately obvious from the route table.
+The Larajax pattern prioritizes **maintainability** by keeping related functionality together and making your application's structure immediately obvious from the route table.

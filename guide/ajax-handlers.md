@@ -14,7 +14,7 @@ function onSubmitContactForm()
 ```
 
 ::: tip Why the `on` prefix?
-This naming convention serves as a security boundary. Only methods matching the `on[Something]` pattern are exposed as AJAX handlers. This prevents unintentional access to other public controller methods—a known vulnerability in some similar frameworks where any public method can be invoked from the client.
+This naming convention serves as a security boundary. Only methods matching the `on[Something]` pattern are exposed as AJAX handlers. This prevents unintentional access to other public controller methods, which is a known vulnerability in some similar frameworks where any public method can be invoked from the client.
 :::
 
 ### Calling a Handler
