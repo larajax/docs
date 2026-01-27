@@ -21,6 +21,19 @@ function onSave()
 }
 ```
 
+You can combine flash messages with other response methods like `update()`:
+
+```php
+function onDeleteItem()
+{
+    // Delete item...
+
+    return ajax()
+        ->flash('success', 'Item deleted')
+        ->update(['#items-list' => view('partials.items-list')]);
+}
+```
+
 Flash messages will disappear after an interval of 3 seconds. Clicking on a flash message will stop it from disappearing.
 
 ### Loading Flash Message

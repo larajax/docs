@@ -245,34 +245,6 @@ Fatal errors are useful when:
 - You want to bypass normal error handling and event lifecycle
 - The error is severe enough that normal processing should not continue
 
-## Flash Messages
-
-Display temporary messages to users using the `flash()` method:
-
-```php
-function onSaveSettings()
-{
-    // Save settings...
-
-    return ajax()->flash('success', 'Settings saved successfully!');
-}
-```
-
-Common flash levels include: `success`, `error`, `warning`, `info`.
-
-You can combine flash messages with other operations:
-
-```php
-function onDeleteItem()
-{
-    // Delete item...
-
-    return ajax()
-        ->flash('success', 'Item deleted')
-        ->update(['#items-list' => view('partials.items-list')]);
-}
-```
-
 ## Loading Assets Dynamically
 
 Load JavaScript, CSS, or images dynamically after an AJAX response:
