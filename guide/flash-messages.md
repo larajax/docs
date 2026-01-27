@@ -69,6 +69,34 @@ jax.flashMsg({
 });
 ```
 
+## Using Flash for Errors
+
+By default, AJAX errors are displayed using the native `alert()` dialog. You can use the `data-request-flash` attribute to show errors as flash messages instead.
+
+```html
+<button
+    data-request="onSubmit"
+    data-request-flash>
+    Submit
+</button>
+```
+
+Using the JavaScript API, set `flash: true` in the options.
+
+```js
+jax.request('onSubmit', { flash: true });
+```
+
+By default, this shows `success`, `error`, `warning`, and `info` messages but excludes `validate` messages (since validation errors are typically shown inline next to form fields). Use `*` to include all message types.
+
+```html
+<button
+    data-request="onSubmit"
+    data-request-flash="*">
+    Submit
+</button>
+```
+
 ## Customizing Alerts
 
 When an AJAX request returns an error message, the framework triggers the `ajax:error-message` event before showing the native `alert()`. You can intercept this to use your own notification library.
