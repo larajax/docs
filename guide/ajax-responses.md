@@ -168,9 +168,16 @@ const data = await jax.request(this.form, 'onHandleForm');
 
 ## Returning Errors
 
-### Regular Errors
+Larajax distinguishes between two error severities that affect how errors are displayed to users:
 
-Use the `error()` method to respond with an error. This sets the HTTP status to 400 and triggers the standard AJAX error lifecycle events.
+| Method | Severity | HTTP Status | With `data-request-flash` |
+| ------ | -------- | ----------- | ------------------------- |
+| `error()` | Recoverable | 400 | Flash message |
+| `fatal()` | Fatal | 500 | Native `alert()` |
+
+### Recoverable Errors
+
+Use the `error()` method for expected error conditions like validation failures or business logic errors. These errors can be displayed as flash messages when `data-request-flash` is enabled.
 
 ```php
 return ajax()->error("Not enough questions");
@@ -220,7 +227,7 @@ try {
 
 ### Fatal Errors
 
-Use the `fatal()` method for critical errors that should not trigger the usual lifecycle events. This sets the HTTP status to 500 by default and bypasses standard error handling.
+Use the `fatal()` method for critical errors that indicate a serious problem. Fatal errors **always** display as native `alert()` dialogs, even when `data-request-flash` is enabled. This ensures critical errors are never missed.
 
 ```php
 function onCriticalOperation()
@@ -239,11 +246,15 @@ You can customize the HTTP status code:
 return ajax()->fatal("Database connection failed", 503);
 ```
 
-Fatal errors are useful when:
+Use fatal errors when:
 - A critical system component is unavailable
+- Database operations fail unexpectedly
 - The application is in an invalid state
-- You want to bypass normal error handling and event lifecycle
 - The error is severe enough that normal processing should not continue
+
+::: tip Customizing Fatal Error Display
+You can still customize how fatal errors are displayed by listening to the `ajax:error-message` event. See [Flash Messages](./flash-messages.md#customizing-alerts) for details.
+:::
 
 ## Loading Assets Dynamically
 

@@ -2,6 +2,17 @@
 
 Validating forms checks the user input against a set of predefined rules. When using the AJAX framework form validation occurs without any special configuration, where the invalid field will be focused and an error message is displayed (usually as an alert window).
 
+## Validation Approaches
+
+Larajax provides several ways to display validation errors:
+
+| Approach | Attributes | Behavior |
+| -------- | ---------- | -------- |
+| **Default** | None | Alert dialog, first invalid field focused |
+| **Flash** | `data-request-flash` | Flash message for errors, first invalid field focused |
+| **Inline** | `data-request-validate` | Errors displayed in `[data-validate-for]` elements, alert for errors |
+| **Combined** | Both attributes | Inline validation + flash message for errors |
+
 ## Flash Validation
 
 For basic validation, including the [`data-request-flash` attribute](../api/attributes/request-flash.md) on the HTML form tag provides a clean and simple interface for displaying validation messages and is usually good enough for most implementations.
@@ -34,7 +45,11 @@ function onSubmit()
 }
 ```
 
-When the AJAX framework encounters the `ValidationException`, it will automatically focus the first invalid field and display error messages, if configured.
+When the AJAX framework encounters the `ValidationException`, it will automatically focus the first invalid field and display error messages as a flash notification.
+
+::: tip Fatal Errors
+Fatal errors (server errors, database failures) always display as native `alert()` dialogs, even with `data-request-flash` enabled. This ensures critical errors are always visible. See [Flash Messages](./flash-messages.md#error-severity) for details.
+:::
 
 ## Inline Validation
 
@@ -160,13 +175,25 @@ If the element is left empty, it will be populated with the validation text from
 
 ### Displaying Errors with Flash Messages
 
-When using the `data-request-validate` attribute in combination with the [`data-request-flash` attribute](../api/attributes/request-flash.md), the validation errors take priority and suppress the flash message. To display both at the same time, set the attribute to a wildcard (`*`) to display all flash message types, including validation.
+When using `data-request-validate` with `data-request-flash`, validation errors are shown both inline (in `[data-validate-for]` elements) and as flash messages. This gives you the best of both approaches.
 
 ```html
 <form
     data-request-validate
-    data-request-flash="*">
+    data-request-flash>
 ```
+
+To show inline validation only (without flash messages for validation errors), exclude the validate type:
+
+```html
+<form
+    data-request-validate
+    data-request-flash="-validate">
+```
+
+::: tip
+Fatal errors always use `alert()` regardless of these settings. See [Flash Messages](./flash-messages.md#error-severity) for details on error severity.
+:::
 
 ## Working with JavaScript
 

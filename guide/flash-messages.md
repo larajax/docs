@@ -84,7 +84,7 @@ jax.flashMsg({
 
 ## Using Flash for Errors
 
-By default, AJAX errors are displayed using the native `alert()` dialog. You can use the `data-request-flash` attribute to show errors as flash messages instead.
+By default, AJAX errors are displayed using the native `alert()` dialog. You can use the `data-request-flash` attribute to show **recoverable errors** as flash messages instead.
 
 ```html
 <button
@@ -100,15 +100,35 @@ Using the JavaScript API, set `flash: true` in the options.
 jax.request('onSubmit', { flash: true });
 ```
 
-By default, this shows `success`, `error`, `warning`, and `info` messages but excludes `validate` messages (since validation errors are typically shown inline next to form fields). Use `*` to include all message types.
+### Error Severity
+
+The framework distinguishes between two types of errors:
+
+| Severity | Examples | Display with `data-request-flash` |
+| -------- | -------- | --------------------------------- |
+| **Recoverable** | Validation errors, business logic errors (`ajax()->error()`) | Flash message |
+| **Fatal** | Database errors, 500 errors (`ajax()->fatal()`) | Native `alert()` |
+
+Fatal errors always use the native `alert()` dialog, even when `data-request-flash` is enabled. This ensures critical errors are always visible to the user. You can still customize fatal error display by listening to the `ajax:error-message` event.
+
+### Message Type Filtering
+
+You can filter which flash message types are displayed using the attribute value. This controls messages sent from the server via `ajax()->flash()`.
 
 ```html
-<button
-    data-request="onSubmit"
-    data-request-flash="*">
-    Submit
-</button>
+<!-- Default: shows all standard types (success, error, warning, info) -->
+<button data-request="onSubmit" data-request-flash>
+
+<!-- Only specific types -->
+<button data-request="onSubmit" data-request-flash="error,success">
+
+<!-- All types except specific ones (negation with minus prefix) -->
+<button data-request="onSubmit" data-request-flash="-error">
 ```
+
+::: tip Inline Validation
+To display validation errors next to form fields in addition to flash messages, use `data-request-validate`. To show inline validation only (without flash), use `data-request-flash="-validate"`. See [Form Validation](./form-validation.md) for details.
+:::
 
 ## Customizing Alerts
 
@@ -125,6 +145,10 @@ addEventListener('ajax:error-message', function(event) {
     });
 });
 ```
+
+::: tip
+This event fires for both recoverable and fatal errors. Use it to implement consistent error styling across your application.
+:::
 
 ## Customizing Confirms
 
