@@ -121,3 +121,107 @@ All AJAX handlers defined in the controller are available to every page action i
 ::: tip
 For a deeper understanding of this pattern and how it compares to traditional resource controllers, see [Architecture & Philosophy](/guide/architecture).
 :::
+
+## Authorization with Policies & Gates
+
+Laravel's [authorization system](https://laravel.com/docs/authorization) works naturally inside AJAX handlers. Since handlers are regular controller methods, you can use `$this->authorize()`, the `Gate` facade, or any other authorization approach you'd use in a standard Laravel controller.
+
+When authorization fails, the thrown exception is caught by the Larajax exception handler and returned as a clean AJAX error response — no extra configuration needed.
+
+### Using Policies
+
+Define a policy as you normally would:
+
+```php
+// app/Policies/PostPolicy.php
+class PostPolicy
+{
+    public function update(User $user, Post $post): bool
+    {
+        return $user->id === $post->user_id;
+    }
+
+    public function delete(User $user, Post $post): bool
+    {
+        return $user->id === $post->user_id;
+    }
+}
+```
+
+Then call `$this->authorize()` inside your handlers:
+
+```php
+class PostController extends LarajaxController
+{
+    public function onUpdate()
+    {
+        $post = Post::findOrFail(request('id'));
+        $this->authorize('update', $post);
+
+        $post->update(request()->validate([
+            'title' => 'required',
+            'body'  => 'required',
+        ]));
+
+        return ['#post-' . $post->id => view('posts._row', compact('post'))];
+    }
+
+    public function onDelete()
+    {
+        $post = Post::findOrFail(request('id'));
+        $this->authorize('delete', $post);
+
+        $post->delete();
+
+        return ajax()->update(['#post-' . $post->id => ''])
+            ->flash('success', 'Post deleted.');
+    }
+}
+```
+
+If the user isn't authorized, Larajax returns an error response automatically:
+
+```json
+{
+    "__ajax": {
+        "ok": false,
+        "severity": "error",
+        "message": "Access Denied"
+    }
+}
+```
+
+### Using Gates
+
+You can also use the `Gate` facade for simpler, non-model checks:
+
+```php
+use Illuminate\Support\Facades\Gate;
+
+public function onPublish()
+{
+    $post = Post::findOrFail(request('id'));
+
+    // Option 1: Throw on failure (caught automatically)
+    Gate::authorize('publish', $post);
+
+    // Option 2: Check manually for a custom message
+    if (Gate::denies('publish', $post)) {
+        return ajax()->error('You cannot publish this post.');
+    }
+
+    $post->update(['published' => true]);
+    return ajax()->flash('success', 'Post published.');
+}
+```
+
+### Route Middleware
+
+For protecting an entire controller (both page loads and AJAX handlers), apply authorization middleware to the route:
+
+```php
+Route::any('/admin/posts', [PostController::class, 'index'])
+    ->middleware('can:manage-posts');
+```
+
+This blocks the request before the controller is reached, so no handler will execute for unauthorized users.
