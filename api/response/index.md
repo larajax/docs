@@ -91,6 +91,32 @@ return ajax()->js([
 ]);
 ```
 
+### Method - `jsInline()` {#jsInline}
+
+Load inline JavaScript code with the response. Unlike `js()` which loads external script files, this executes the provided code directly.
+
+```php
+return ajax()->jsInline('console.log("hello")');
+```
+
+You can pass attributes as a second parameter, which is useful for running inline code as an ES module.
+
+```php
+return ajax()->jsInline('import { setup } from "./mod.js"; setup();', ['type' => 'module']);
+```
+
+Multiple inline scripts can be chained together.
+
+```php
+return ajax()
+    ->jsInline('window.appReady = true')
+    ->jsInline('import { init } from "./app.js"; init();', ['type' => 'module']);
+```
+
+::: tip
+Inline scripts are always executed, even on subsequent requests. They are not deduplicated like external scripts loaded with `js()`.
+:::
+
 ### Method - `css()` {#css}
 
 Load a StyleSheet with the response.
