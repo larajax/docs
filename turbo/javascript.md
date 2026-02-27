@@ -122,7 +122,7 @@ addEventListener('page:before-render', async (event) => {
 ```
 
 ::: warning
-Keep in mind that the **page:before-render** event may fire twice, once from cache and once again after requesting the new page content.
+Keep in mind that the **page:before-render** event may fire for every page navigation.
 :::
 
 ## Global Events
@@ -137,9 +137,8 @@ Event | Description
 **page:visit** | triggered after a clicked visit starts.
 **page:request-start** | triggered before the request for a page.
 **page:request-end** | triggered after the page request ends.
-**page:before-cache** | triggered before a page is cached.
 **page:before-render** | triggered before the page content is rendered.
-**page:render** | triggered after the page is rendered. This is fired twice, once from cache and once again after requesting the new page content.
+**page:render** | triggered after the page is rendered.
 **page:load** | triggered once after the initial page load and again every time a page is visited.
 **page:loaded** | identical to `page:load` except will wait for all newly added scripts to load.
 **page:updated** | similar to `DOMContentLoaded` except triggered only when a page is visited.

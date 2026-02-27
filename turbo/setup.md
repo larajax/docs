@@ -101,48 +101,6 @@ You may disable this behavior by including the `turbo-visit-control` meta tag in
 <meta name="turbo-visit-control" content="error">
 ```
 
-## Page Caching
-
-With caching enabled, the turbo router speeds up a website's performance by displaying revisited pages without accessing the network, making the website feel faster. When clicking a link, the contents are shown from the browser's local storage while the page requests the background. The latest page shows when the network request is complete, meaning the page renders twice.
-
-### Listening for the Cache Event
-
-You may listen to the `page:before-cache` event if you need to prepare the document before it enters the cache. You can use this for things like resetting forms, collapsing UI elements or tearing down any third-party controls, so the page is ready to be displayed again.
-
-```js
-addEventListener('page:before-cache', function() {
-    // Close any open submenus, etc.
-});
-```
-
-### Detecting a Cached Page Load
-
-You can detect when the page contents are sourced from the cache with the `data-turbo-preview` attribute on the HTML element. Expressed in JavaScript as the following.
-
-```js
-if (document.documentElement.hasAttribute('data-turbo-preview')) {
-    // Page shown is loaded from cache
-}
-```
-
-Or using a StyleSheet with the following.
-
-```css
-html[data-turbo-preview] {
-    /* Hide overlays from previous view */
-}
-```
-
-### Disabling the Cache
-
-You can disable the page cache for individual pages by using the `turbo-cache-control` meta tag in the page's head section. Settings this value to **no-cache** will disable the cache entirely. You can also set this to **no-preview** to keep the cached version when navigating using the browser's Back and Forward buttons.
-
-```html
-<head>
-    <meta name="turbo-cache-control" content="no-cache">
-</head>
-```
-
 ## Working with Hot Reloading
 
 In some cases, the turbo router may interfere when you are developing your website with hot reloading or browser sync technology, such as with [Laravel Mix](https://laravel-mix.com/) in development mode using `laravel-mix & browsersync`. Since the turbo router is disabled by default, simply omit the `turbo-visit-control` meta tag in your development environment to ensure compatibility with hot reloading.
