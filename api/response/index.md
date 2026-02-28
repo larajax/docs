@@ -241,6 +241,25 @@ catch (Exception $ex) {
 }
 ```
 
+### Method - `force()` {#force}
+
+Bypass the AJAX envelope entirely and return a custom response. This is useful for data-only API-style handlers where the full AJAX pipeline (asset injection, DOM patching, flash messages) adds unnecessary overhead to the response payload.
+
+```php
+return ajax()->force(['metrics' => [...], 'totals' => [...]]);
+```
+
+When `force()` is used, the response skips the `__ajax` envelope and returns the data as a plain JSON object. On the client side, `jax.ajax()` handles this gracefully — if the response has no `__ajax` key, it returns the data as-is.
+
+```js
+const data = await jax.ajax('onGetWidgetData');
+// { metrics: [...], totals: [...] }
+```
+
+::: tip
+Use `force()` when the handler only needs to return data and doesn't require DOM updates, flash messages, asset loading, or any other AJAX operations. For handlers that need any of those features, use `data()` instead.
+:::
+
 ## Override - `registerCustomResponse` {#register-custom-response}
 
 Let's define a custom class that introduces a `sweetAlert` method to the `ajax()` function.
