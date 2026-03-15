@@ -42,6 +42,7 @@ const sharedSidebar = [
         items: [
             { text: 'Enable Turbo Router', link: '/turbo/setup' },
             { text: 'Working with JavaScript', link: '/turbo/javascript' },
+            { text: 'View Transitions', link: '/turbo/view-transitions' },
         ]
     }
 
