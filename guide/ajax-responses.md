@@ -54,7 +54,7 @@ function onRefreshDashboard()
 
 ### Swap Modes
 
-Control how content is inserted using the `swap` option. The default swap mode is `innerHTML`.
+Control how content is inserted using the `swap` option. The default swap mode is `update`.
 
 ```php
 function onAddItem()
@@ -70,13 +70,12 @@ function onAddItem()
 
 Available swap modes:
 
-- **innerHTML**: Sets the content of the target element (default)
-- **outerHTML**: Replaces the target element entirely
+- **update**: Sets the content of the target element (default)
+- **replace**: Replaces the target element entirely
 - **append**: Inserts content at the end of the target element
 - **prepend**: Inserts content at the beginning of the target element
 - **after**: Inserts content immediately after the target element
 - **before**: Inserts content before the target element
-- **replace**: Completely replaces the target element with the content
 
 ## Form Validation
 
