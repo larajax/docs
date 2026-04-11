@@ -21,10 +21,10 @@ class LarajaxController extends Controller implements AjaxControllerInterface
     /**
      * callAction injects AJAX handlers in to controller actions
      */
-    public function callAction($action, $params)
+    public function callAction($action, $parameters)
     {
         try {
-            if ($result = $this->callAjaxAction($action, array_values($params))) {
+            if ($result = $this->callAjaxAction($action, $parameters)) {
                 return $result;
             }
         }
@@ -32,7 +32,7 @@ class LarajaxController extends Controller implements AjaxControllerInterface
             return ajax()->exception($ex);
         }
 
-        return parent::callAction($action, $params);
+        return parent::callAction($action, $parameters);
     }
 }
 ```

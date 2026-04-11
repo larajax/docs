@@ -54,3 +54,39 @@ function onSubmitContactForm()
     $firstName = request('first_name');
 }
 ```
+
+### Dependency Injection
+
+AJAX handlers support dependency injection, just like standard Laravel controller methods. You can type-hint any class on your handler method and it will be resolved from the service container automatically.
+
+```php
+use Illuminate\Http\Request;
+
+function onSubmitContactForm(Request $request)
+{
+    $firstName = $request->input('first_name');
+}
+```
+
+This also works with [Form Request objects](./form-validation.md#using-form-request-objects) for automatic validation, and any other service bound in the container.
+
+```php
+use App\Http\Requests\ContactRequest;
+use App\Services\ContactService;
+
+function onSubmitContactForm(ContactRequest $request, ContactService $contacts)
+{
+    $contacts->send($request->validated());
+}
+```
+
+Route parameters are also passed to handlers by name. For example, with a route like `/posts/{post}`, you can access the parameter on the handler method.
+
+```php
+// Route: Route::any('/posts/{post}', [PostController::class, 'show']);
+
+function onArchive($post)
+{
+    Post::findOrFail($post)->archive();
+}
+```

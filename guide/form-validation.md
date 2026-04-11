@@ -137,6 +137,81 @@ $attributeNames = [
 $data = request()->validate($rules, [], $attributeNames);
 ```
 
+## Using Form Request Objects
+
+Laravel [Form Request](https://laravel.com/docs/validation#form-request-validation) objects are fully supported in AJAX handlers. Type-hint a Form Request class on your handler method and it will be resolved automatically, with validation and authorization running before the handler executes.
+
+### Creating a Form Request
+
+Generate a Form Request using Artisan:
+
+```bash
+php artisan make:request ContactRequest
+```
+
+Define your rules and optional authorization logic:
+
+```php
+namespace App\Http\Requests;
+
+use Illuminate\Foundation\Http\FormRequest;
+
+class ContactRequest extends FormRequest
+{
+    public function authorize(): bool
+    {
+        return true;
+    }
+
+    public function rules(): array
+    {
+        return [
+            'name' => 'required',
+            'email' => 'required|email',
+            'message' => 'required|min:10',
+        ];
+    }
+}
+```
+
+### Using in a Handler
+
+Type-hint the Form Request on your AJAX handler method. Validation runs automatically before the handler body executes — if validation fails, a `ValidationException` is thrown and the framework returns field errors to the browser.
+
+```php
+use App\Http\Requests\ContactRequest;
+
+function onSubmit(ContactRequest $request)
+{
+    $data = $request->validated();
+
+    // Validation already passed if we reach here
+
+    Flash::success('Message sent!');
+}
+```
+
+This works the same way as a standard Laravel controller method. The Form Request's `authorize()` method is also called, returning an access denied error if it returns `false`.
+
+### Reusing Form Requests
+
+Since Form Requests are standalone classes, you can share the same validation rules across AJAX handlers and regular controller actions, keeping your validation logic in one place.
+
+```php
+// Used in an AJAX handler
+function onSaveProfile(UpdateProfileRequest $request)
+{
+    auth()->user()->update($request->validated());
+}
+
+// Used in a standard controller action
+public function update(UpdateProfileRequest $request)
+{
+    auth()->user()->update($request->validated());
+    return redirect()->back();
+}
+```
+
 ## Displaying Error Messages
 
 Inside the form, you may display the first error message by using the `data-validate-error` attribute on a container element. The content inside the container will be set to the error message and the element will be made visible.
