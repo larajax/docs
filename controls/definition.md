@@ -30,23 +30,23 @@ The `connect` and `disconnect` methods within the class definition are triggered
 ```js
 class extends jax.ControlBase {
     connect() {
-        // Element has appeared in DOM
+        // this.element has appeared in DOM
     }
 
     disconnect() {
-        // Element was removed from DOM
+        // this.element was removed from DOM
     }
 }
 ```
 
 ## Initializing a Control
 
-The `init` method allows you to load the default configuration for the control and configure its child elements.
+The `init` method allows you to establish the default configuration for the control and configure its child elements.
 
 ```js
 class extends jax.ControlBase {
     init() {
-        // Establish the control before running logic
+        // Fires once when the element is first seen
     }
 }
 ```
