@@ -46,7 +46,7 @@ The `init` method allows you to establish the default configuration for the cont
 ```js
 class extends jax.ControlBase {
     init() {
-        // Fires once when the element is first seen
+        // Fires once when this.element is first seen
     }
 }
 ```
