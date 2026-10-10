@@ -64,6 +64,25 @@ registerControl('address-input', AddressInputControl);
 Group related controls with comments to improve readability and make it easier to find specific registrations.
 :::
 
+## Lazy Registration
+
+Controls that are large or appear on few pages can be imported on demand. Pass a function that returns the import instead of the class. The control file, and everything it imports, loads when the first element with that control appears on the page.
+
+```js
+// controls.js
+registerControl('code-editor', () => import('./controls/code-editor-control'));
+```
+
+Elements added while the control loads are connected once it is ready, and until then `fetchControl()` returns `null` for them. If the import fails, the error is reported and the elements stay unconnected. When bundling, enable code splitting so the import becomes a separate file (esbuild needs `format: 'esm'` and `splitting: true`).
+
+Inside an element with the `data-lazy-controls` attribute, controls connect only when that element scrolls into view, so the import waits until then.
+
+```html
+<div data-lazy-controls>
+    <div data-control="code-editor"></div>
+</div>
+```
+
 ## Benefits
 
 This approach offers several advantages over inline registration:

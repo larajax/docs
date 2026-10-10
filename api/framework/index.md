@@ -329,12 +329,18 @@ jax.visit(location, { action: 'replace' });
 
 ### Method - `registerControl` {#register-control}
 
-Registers a hot control. The second argument must be a class definition that extends `jax.ControlBase`.
+Registers a hot control. The second argument is a class definition that extends `jax.ControlBase`, or a function that imports one.
 
 ```js
 jax.registerControl('hello', class extends jax.ControlBase {
     // ...
 });
+```
+
+A function runs once, when the first element with the control appears on the page, and returns the class or a module with a default export.
+
+```js
+jax.registerControl('hello', () => import('./controls/hello-control.js'));
 ```
 
 ### Method - `importControl` {#import-control}
