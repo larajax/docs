@@ -16,8 +16,9 @@ Triggered on the window object when the HTTP request starts. The event detail co
 
 - `url` - The request URL
 - `xhr` - The XMLHttpRequest object
+- `context` - The request context (or `null` when the request was not initiated with one)
 
-Useful for global loading indicators.
+Useful for global loading indicators. Since the `context` is provided, a global loader can honor `context.options.loader === false` to opt out of specific requests.
 
 ### Event - `ajax:request-end` {#ajax:request-end}
 
@@ -25,6 +26,7 @@ Triggered on the window object when the HTTP request ends. The event detail cont
 
 - `url` - The request URL
 - `xhr` - The XMLHttpRequest object
+- `context` - The request context (or `null` when the request was not initiated with one)
 
 ### Event - `ajax:before-update` {#ajax:before-update}
 

@@ -25,7 +25,7 @@ The control name is used to link to a DOM element representing the control, usin
 <div data-control="hello"></div>
 ```
 
-The `connect` and `disconnect` methods within the class definition are triggered whenever the control is added or removed from the page. This can occur at any time, as the observer continuously monitors for DOM changes.
+The `connect` and `disconnect` methods within the class definition are triggered whenever the control is added or removed from the page. This can occur at any time, as the observer continuously monitors for DOM changes. Controls inside a container marked with `data-lazy-controls` wait until the container becomes visible before connecting, see [Lazy Controls](./lazy-controls.md) for more information.
 
 ```js
 class extends jax.ControlBase {

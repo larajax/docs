@@ -156,6 +156,22 @@ addEventListener('ajax:request-end', function() {
 });
 ```
 
+Both events include the request `context` in their detail, so the global loader can opt out of specific requests using the `loader` option.
+
+```js
+addEventListener('ajax:request-start', function(event) {
+    if (event.detail?.context?.options?.loader === false) return;
+
+    document.querySelector('#global-loader').classList.add('visible');
+});
+```
+
+Disable it per request the same way as the element-specific loader:
+
+```js
+jax.ajax('onDoSomething', { loader: false });
+```
+
 ### Element-Specific Loader
 
 For loaders relative to the triggering element (like a spinner inside a button), use `ajax:before-request`, `ajax:request-complete`, and `ajax:request-cancel`. The cancel event fires when a confirmation dialog is declined, ensuring the loader is hidden even if the request never runs.
