@@ -64,6 +64,7 @@ export default {
         nav: [
             { text: 'Guide', link: '/' },
             { text: 'Reference', link: '/api/reference' },
+            { text: 'UI', link: 'https://ui.larajax.org' },
             { text: 'GitHub', link: 'https://github.com/larajax/larajax' }
             // { text: 'Features', link: '/guide/api' },
         ],
