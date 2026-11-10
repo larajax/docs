@@ -38,6 +38,8 @@ jax.waitFor(() => window.propName, 2000).then(() => {
 
 The turbo router maintains the scripts within the `<head>` tag of the page by comparing the differences. If you use script tags in the `<body>` tag then the script will be executed every time the page renders, which may be undesirable.
 
+When a page is visited, the `page:loaded` event waits until any scripts added by the visit have run, matching what `DOMContentLoaded` does on a full page load. This includes external scripts and modules, but not scripts marked `async`. Inline scripts run as soon as they are added, so an inline script in the `<body>` may run before an external script placed above it, when that external script is new to the page.
+
 You may include `data-turbo-eval="false"` to only allow the script to be executed on the first page load. The script will not be called for any PJAX requests.
 
 ```html
@@ -140,7 +142,7 @@ Event | Description
 **page:before-render** | triggered before the page content is rendered.
 **page:render** | triggered after the page is rendered.
 **page:load** | triggered once after the initial page load and again every time a page is visited.
-**page:loaded** | identical to `page:load` except will wait for all newly added scripts to load.
+**page:loaded** | identical to `page:load` except will wait for newly added scripts to run, the same as `DOMContentLoaded` on a full page load. Scripts marked `async` are not waited for.
 **page:updated** | similar to `DOMContentLoaded` except triggered only when a page is visited.
 **page:unload** | called when a previously loaded page should be disposed.
 
